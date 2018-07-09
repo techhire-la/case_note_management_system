@@ -1,18 +1,16 @@
 {
-  "name": "ypiMongo",
+  "name": "ypi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "mongoose": "^5.2.1"
-  },
-  "devDependencies": {
-    "mocha": "^5.2.0"
-  },
+  "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "pug": "^2.0.3"
+  }
 }
