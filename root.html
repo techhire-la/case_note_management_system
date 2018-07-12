@@ -1,14 +1,14 @@
 <html>
-<head>
-<meta charset="utf-8">
-<style type="text/css">
-body {
+  <head>
+  <meta charset="utf-8">
+  <style type="text/css">
+      body {
 background-color: #f4f4f4;
 color: #5a5656;
 font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 font-size: 16px;
 line-height: 1.5em;
-}
+            }
 a { text-decoration: none; }
 h1 { font-size: 1em; }
 h1, p {
@@ -79,13 +79,15 @@ width: 50px;
 <body>
 <div id="login">
 <h1><strong>Welcome.</strong> Please login.</h1>
-<form action="javascript:void(0);" method="get">
-<fieldset>
-<p><input type="text" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
-<p><input type="Password" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
 
-<p><input type="submit" value="Login"></p>
+<form action="/addname" method="post">
+
+<fieldset>
+  <p><input type="text" name="username" placeholder="username" required></p>
+  <p><input type="password" name="password" placeholder="password" required></p>
+  <p><input type="submit" value="Login"></p>
 </fieldset>
+
 </form>
 
 </div> <!-- end login -->

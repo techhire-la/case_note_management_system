@@ -3,17 +3,21 @@ const Schema = mongoose.Schema;
 
 // Create a Schema and a Model
 
+
 const userSchema = new Schema({
-    id: {type: String, required: true , unique: true},
-    email:{type: String, required: true, unique: true},
+  //  id: {type: String, required: true , unique: true},
+    username:{type: String, required: true, unique: true},
     password:{type: String, required: true, unique: true},
-    password_confirmation:{type: String, required: true, unique: true},
-    timestamp: true
+  //  password_confirmation:{type: String, required: true, unique: true},
+    // timestamp: true
 
 });
+//const User = mongoose.model('User', userSchema);
+
+
 
 // hash password before saving to databse'
-UserSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) {
 
   var user = this;
   bcrypt.hash(user.password, 10, function(err, hash){
@@ -26,23 +30,6 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-UserSchema.pre('save', function(next) {
+module.exports = mongoose.model('User', userSchema);
 
-  var user = this;
-  bcrypt.hash(user.password_confirmation, 10, function(err, hash){
-
-      if(err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
-    });
-});
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
-
-const User = mongoose.model('Client', userSchema);
-
-module.exports = User;
+//module.exports = User;
