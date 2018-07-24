@@ -9,23 +9,31 @@ const route = require('./route.js');
 
 //parse incoming request
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 app.set('view engin', 'pug');
-app.engine('html', require('ejs').renderFile); // copy pasted, shaky on what it's for
+app.set('views', __dirname + '/views');
+
 
 var routes = require('./route');
 app.use('/', routes);
 
 
-
-app.use("/", (req, res) => {
-res.sendFile(__dirname + "/root.html");
+app.use('/', (req, res) => {
+  res.sendFile(__dirname + '/root.html');
 });
-
+/*
+app.use('/index', (req, res) => {
+  res.sendFile(__dirname + '/index.html')
+});
+*/
 // The mongoose connection
 
+
+
 mongoose.connect('mongodb://localhost:27017/testaro');
+
 
 mongoose.connection.once('open', function(){
     console.log('Connection has been made, now make fireworks...');
@@ -35,12 +43,10 @@ mongoose.connection.once('open', function(){
 });
 
 
-
-
-
+///listen to port 4000
 
 app.listen(4000, () => {
-console.log('the application is running')
+  console.log('the application is running');
 });
 
 
