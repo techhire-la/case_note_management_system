@@ -1,40 +1,49 @@
-const express = require('express');
+const express = require('express'),
+ redirect = require("express-redirect");
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 
 const User = require('./models/user');
 const mongoose = require('mongoose');
-const route = require('./route.js');
+const root = require('./route/root');
+const routes = require('./route/index');
+
 
 //parse incoming request
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//sapp.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.set('view engin', 'pug');
 app.set('views', __dirname + '/views');
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
 
 
-var routes = require('./route');
-app.use('/', routes);
 
+//res.json({ error: err });
+
+app.use('/', root);
+app.use('/index', routes);
+
+app.use(express.static(__dirname + '/route'));
 
 app.use('/', (req, res) => {
-  res.sendFile(__dirname + '/root.html');
+res.sendFile('./root.html',  {"root": __dirname});
+
 });
-/*
+
+
 app.use('/index', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
+  res.render('./route/index');
 });
-*/
+
+
 // The mongoose connection
 
 
 
 mongoose.connect('mongodb://localhost:27017/testaro');
-
-
 mongoose.connection.once('open', function(){
     console.log('Connection has been made, now make fireworks...');
 
