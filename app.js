@@ -7,39 +7,40 @@ const bodyParser = require('body-parser');
 const User = require('./models/user');
 const mongoose = require('mongoose');
 const root = require('./route/root');
-const routes = require('./route/index');
+//const routes = require('./route/index');
 
 
 //parse incoming request
 //sapp.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
-app.engine('html', require('ejs').renderFile);
-
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs').renderFile);
+//res.render(views, locals);
 
 
 //res.json({ error: err });
 
-app.use('/', root);
-app.use('/index', routes);
+//app.use('/test', test);
+//app.use('/index', routes);
 
-app.use(express.static(__dirname + '/route'));
+var routes = require('./route/root');
+app.use('/', routes);
+
+
 
 app.use('/', (req, res) => {
-res.sendFile('./root.html',  {"root": __dirname});
-
+  res.sendFile('./root.html',  {"root": __dirname});
 });
 
 
-app.use('/index', (req, res) => {
-  res.render('./route/index');
+
+
+app.get('/test', function(err,req, res, next) {
+        res.render('test.ejs') ;
 });
-
-
-// The mongoose connection
 
 
 
@@ -57,17 +58,3 @@ mongoose.connection.once('open', function(){
 app.listen(4000, () => {
   console.log('the application is running');
 });
-
-
-/*
-// Should be moved to the route page
-app.post("/addname", (req, res) => {
-    var myData = new User(req.body);
-    myData.save()
-    .then(item => {
-    res.send("item saved to database");
-    }).catch(err => {
-   res.status(400).send("unable to save to database");
-  });
-});
-*/
