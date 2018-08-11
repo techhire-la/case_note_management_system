@@ -3,29 +3,62 @@ var router = express.Router();
 
 const user = require('../models/user');
 const mongoose = require('mongoose');
+//const client = require('../models/client');
+const client = require('../models/client');
+
+var globalClient = [];
+
+
+var db = mongoose.connection;
 
 
 router.get('/', function(err,req, res, next) {
+
+
   return res.render('root', {title: "root"});
 });
 
+
 router.get('/index', function(req, res, next) {
 
-      var db = mongoose.connection;
       db.collection('client').find().toArray(function (err, result) {
-
       if (err) return console.log(err);
+
+      for (var i=0 ; i < result.length; i++){
+       globalClient.push(result[i].name);
+      }
+
       res.render('index.ejs', {client: result}) ;
+
     })
+
+
+
+
 });
 
-router.get('/test/:Jerry', function(req, res, next) {
+
+
+
+
+
+router.get('/test', function(req, res, next) {
+
   return res.render('test', { title: 'Test' });
 });
 
 
+router.get('/index/test', function(req, res, next) {
+  //  res.send('The tag name is' + req.params.name);
 
-//
+  //console.log(globalClient);
+
+  res.send('What is up ' + globalClient[15] + ' !');
+
+});
+
+
+
 
 router.post('/addname', function(req, res, next) {
 
@@ -39,6 +72,8 @@ router.post('/addname', function(req, res, next) {
       // use schema's `create` method to insert document into Mongo
       user.create(userData, function (error, user) {
 
+
+
       if (error) {
 
           console.log("error");
@@ -46,6 +81,7 @@ router.post('/addname', function(req, res, next) {
 
         } else {
           console.log("saved");
+
 
            res.redirect('/index');
            return;
@@ -59,18 +95,5 @@ router.post('/addname', function(req, res, next) {
     }
 })
 
-
-
-
-
-//Fetching data
-/*
-router.get('/', (req, res) => {
-    let user = User.find({})
-    .sort({date:'desc'}).exec( (err, ideas) => {
-      res.json({ error: err });
-    });
-})
-*/
 
 module.exports = router;

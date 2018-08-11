@@ -7,28 +7,17 @@ const bodyParser = require('body-parser');
 const User = require('./models/user');
 const mongoose = require('mongoose');
 const root = require('./route/root');
-//const routes = require('./route/index');
 
-
-//parse incoming request
-//sapp.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs').renderFile);
-//res.render(views, locals);
 
 
-//res.json({ error: err });
 
-//app.use('/test', test);
-//app.use('/index', routes);
-
-var routes = require('./route/root');
-app.use('/', routes);
-
+app.use('/', require('./route/root'));
 
 
 app.use('/', (req, res) => {
@@ -38,11 +27,8 @@ app.use('/', (req, res) => {
 
 
 
-app.get('/test', function(err,req, res, next) {
-        res.render('test.ejs') ;
-});
 
-
+//Mongooose Connection
 
 mongoose.connect('mongodb://localhost:27017/testaro');
 mongoose.connection.once('open', function(){
