@@ -6,15 +6,11 @@ const mongoose = require('mongoose');
 //const client = require('../models/client');
 const client = require('../models/client');
 
-var globalClient = [];
-
 
 var db = mongoose.connection;
 
 
 router.get('/', function(err,req, res, next) {
-
-
   return res.render('root', {title: "root"});
 });
 
@@ -31,34 +27,20 @@ router.get('/index', function(req, res, next) {
       res.render('index.ejs', {client: result}) ;
 
     })
-
-
-
-
 });
 
 
+router.param('id', (req, res, next , id)=> {
 
-
-
-
-router.get('/test', function(req, res, next) {
-
-  return res.render('test', { title: 'Test' });
+    next();
 });
 
 
-router.get('/index/test', function(req, res, next) {
-  //  res.send('The tag name is' + req.params.name);
+router.get('/index/:id', function(req, res, next) {
 
-  //console.log(globalClient);
-
-  res.send('What is up ' + globalClient[15] + ' !');
+  res.send('What is up ' + req.params.id + ' !');
 
 });
-
-
-
 
 router.post('/addname', function(req, res, next) {
 
