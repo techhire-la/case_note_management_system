@@ -4,7 +4,7 @@ import { Container, Form, Button, Header } from 'semantic-ui-react';
 class Users extends Component {
   render() {
     return (
-      <Container>
+      <Container className='login-style'>
         <Header as='h1'>Log In</Header>
         <Form>
           <Form.Input label='Email' />
