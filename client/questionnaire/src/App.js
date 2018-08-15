@@ -6,6 +6,9 @@ class App extends Component {
     return (
       <div className="App">
         <p>This is the app</p>
+        <button className="ui primary button">
+          Submit
+        </button>
       </div>
     );
   }
