@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Radio, Form, Button } from 'semantic-ui-react';
+import { Container, Header, Form, Radio, Button } from 'semantic-ui-react';
 
 class Question extends Component {
   render() {
@@ -42,8 +42,8 @@ class Answers extends Component {
           </Question>
 
           <Question text='Did you find a job?'>
-            <Radio label='Yes' />
-            <Radio label='No' />
+            <Radio name="jobgroup" label='Yes' />
+            <Radio name="jobgroup" label='No' />
           </Question>
 
           <Button primary type='submit'>Submit</Button><br /><br /><br />
