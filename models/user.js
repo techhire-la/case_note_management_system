@@ -6,8 +6,18 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   //  id: {type: String, required: true , unique: true},
-    username:{type: String, required: true, unique: true},
-    password:{type: String, required: true, unique: true},
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    created_on: {
+        type: Date,
+        default: Date.now
+    }
   //  password_confirmation:{type: String, required: true, unique: true},
     // timestamp: true
 
