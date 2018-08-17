@@ -11,11 +11,53 @@ class Question extends Component {
   }
 }
 
-class JobFoundRadioGroup extends Component {
+class ApplyingToJobsGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.handleChange = (e, { value }) => this.setState({ value });
+  }
+
+  render() {
+    return (
+      <div>
+        <Question text='Are you currently applying to jobs?' />
+        <Form.Field>
+          <Radio name="applygroup" label='Yes'
+            value='yes' checked={this.state.value === 'yes'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="applygroup" label='No'
+            value='no' checked={this.state.value === 'no'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <br />
+      </div>
+    );
+  }
+}
+
+class MoreJobInquiries extends Component {
+  render() {
+    return (<ApplyingToJobsGroup />);
+  }
+}
+
+class JobFoundRadioGroup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleChange = (e, { value }) => {
+       this.setState({ value });
+     };
+  }
+
+  moreJobInquiries() {
+    if (this.state.value === 'no')
+      return (<MoreJobInquiries />);
+    else
+      return (<div></div>);
   }
 
   render() {
@@ -32,6 +74,7 @@ class JobFoundRadioGroup extends Component {
             onChange={this.handleChange} />
         </Form.Field>
         <br />
+        {this.moreJobInquiries()}
       </div>
     );
   }
