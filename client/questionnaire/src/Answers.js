@@ -83,21 +83,7 @@ class UploadResume extends Component {
           <Question text='Upload your resume' />
         </Form.Field>
         <Form.Field>
-          <Label as="label" basic htmlFor="upload">
-            <input
-                hidden
-                id="upload"
-                type="file"
-            />
-            <Button
-                icon="upload"
-                label={{
-                    basic: true,
-                    content: 'Select file'
-                }}
-                labelPosition="left"
-            />
-          </Label>
+          <Input type="file" id="resume" name="resume" />
         </Form.Field>
         <br />
       </span>
