@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Form, Radio, Button } from 'semantic-ui-react';
 
-let answers = {
-  
-};
-
 class Question extends Component {
   render() {
     return (
@@ -42,6 +38,11 @@ class JobFoundRadioGroup extends Component {
 }
 
 class Answers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return(
       <Container text className='questionnaire-style'>
