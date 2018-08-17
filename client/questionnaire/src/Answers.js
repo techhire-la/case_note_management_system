@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Form, Radio, Button } from 'semantic-ui-react';
+import { Container, Header, Form, Input, Radio, Label, Button } from 'semantic-ui-react';
 
 class Question extends Component {
   render() {
@@ -11,7 +11,7 @@ class Question extends Component {
   }
 }
 
-class ApplyingToJobsGroup extends Component {
+class ApplyingToJobs extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -38,9 +38,138 @@ class ApplyingToJobsGroup extends Component {
   }
 }
 
+class JobsPerWeek extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleChange = (e, { value }) => this.setState({ value });
+  }
+
+  render() {
+    return (
+      <div>
+        <Question text='How many a week?' />
+        <Form.Field>
+          <Radio name="applygroup" label='Less than 10'
+            value='yes' checked={this.state.value === '<10'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="applygroup" label='Less than 20'
+            value='no' checked={this.state.value === '<20'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="applygroup" label='Less than 30'
+            value='yes' checked={this.state.value === '<30'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="applygroup" label='More than 30'
+            value='no' checked={this.state.value === '>30'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <br />
+      </div>
+    );
+  }
+}
+
+class UploadResume extends Component {
+  render() {
+    return (
+      <span>
+        <Form.Field>
+          <Question text='Upload your resume' />
+        </Form.Field>
+        <Form.Field>
+          <Label as="label" basic htmlFor="upload">
+            <input
+                hidden
+                id="upload"
+                type="file"
+            />
+            <Button
+                icon="upload"
+                label={{
+                    basic: true,
+                    content: 'Select file'
+                }}
+                labelPosition="left"
+            />
+          </Label>
+        </Form.Field>
+        <br />
+      </span>
+    );
+  }
+}
+
+class AttendingDevelopment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleChange = (e, { value }) => this.setState({ value });
+  }
+
+  render() {
+    return (
+      <div>
+        <Question text='Have you been attending professional development training or advice?' />
+        <Form.Field>
+          <Radio name="developmentgroup" label='Yes'
+            value='yes' checked={this.state.value === 'yes'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="developmentgroup" label='No'
+            value='no' checked={this.state.value === 'no'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <br />
+      </div>
+    );
+  }
+}
+
+class MeetWithRep extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleChange = (e, { value }) => this.setState({ value });
+  }
+
+  render() {
+    return (
+      <div>
+        <Question text='Would you like to meet with someone from TechHire?' />
+        <Form.Field>
+          <Radio name="meetgroup" label='Yes'
+            value='yes' checked={this.state.value === 'yes'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <Form.Field>
+          <Radio name="meetgroup" label='No'
+            value='no' checked={this.state.value === 'no'}
+            onChange={this.handleChange} />
+        </Form.Field>
+        <br />
+      </div>
+    );
+  }
+}
+
 class MoreJobInquiries extends Component {
   render() {
-    return (<ApplyingToJobsGroup />);
+    return (
+      <div>
+        <ApplyingToJobs />
+        <JobsPerWeek />
+        <UploadResume />
+        <AttendingDevelopment />
+        <MeetWithRep />
+      </div>
+    );
   }
 }
 
