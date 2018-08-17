@@ -51,22 +51,22 @@ class JobsPerWeek extends Component {
         <Question text='How many a week?' />
         <Form.Field>
           <Radio name="applygroup" label='Less than 10'
-            value='yes' checked={this.state.value === '<10'}
+            value='<10' checked={this.state.value === '<10'}
             onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
           <Radio name="applygroup" label='Less than 20'
-            value='no' checked={this.state.value === '<20'}
+            value='<20' checked={this.state.value === '<20'}
             onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
           <Radio name="applygroup" label='Less than 30'
-            value='yes' checked={this.state.value === '<30'}
+            value='<30' checked={this.state.value === '<30'}
             onChange={this.handleChange} />
         </Form.Field>
         <Form.Field>
           <Radio name="applygroup" label='More than 30'
-            value='no' checked={this.state.value === '>30'}
+            value='>30' checked={this.state.value === '>30'}
             onChange={this.handleChange} />
         </Form.Field>
         <br />
