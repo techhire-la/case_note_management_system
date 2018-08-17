@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const User = require('./models/user');
 const mongoose = require('mongoose');
-const root = require('./route/root');
+const root = require('./routes/root');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,7 +17,7 @@ app.engine('ejs', require('ejs').renderFile);
 
 
 
-app.use('/', require('./route/root'));
+app.use('/', require('./routes/root'));
 
 
 app.use('/', (req, res) => {
