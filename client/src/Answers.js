@@ -14,8 +14,11 @@ class Question extends Component {
 class ApplyingToJobs extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.handleChange = (e, { value }) => this.setState({ value });
+    this.state = {
+      applyingToJobs: undefined,
+
+    };
+    this.handleApplyingToJobsChange = (e, { value }) => this.setState({ value });
   }
 
   render() {
@@ -25,12 +28,12 @@ class ApplyingToJobs extends Component {
         <Form.Field>
           <Radio name="applygroup" label='Yes'
             value='yes' checked={this.state.value === 'yes'}
-            onChange={this.handleChange} />
+            onChange={this.handleApplyingToJobsChange} />
         </Form.Field>
         <Form.Field>
           <Radio name="applygroup" label='No'
             value='no' checked={this.state.value === 'no'}
-            onChange={this.handleChange} />
+            onChange={this.handleApplyingToJobsChange} />
         </Form.Field>
         <br />
       </div>
