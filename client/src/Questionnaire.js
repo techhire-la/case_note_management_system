@@ -42,7 +42,7 @@ class Questionnaire extends Component {
         var date_split = date.split("-");
         var modified_date = `${date_split[1]}/${date_split[2]}/${date_split[0]}`
         // var date_regex = /^\d{2}\/\d{2}\/\d{4}$/ ;
-        this.setState({ dateOfCompletion: date_regex.test(date) });
+        this.setState({ dateOfCompletion: modified_date });
     }
 
   }
