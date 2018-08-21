@@ -36,7 +36,6 @@ class Questionnaire extends Component {
     // }
 
     this.handleDate = (e) => {
-        debugger
         console.log(e.target.value)
         var date = e.target.value.split("-");
         var modified_date = `${date[1]}/${date[2]}/${date[0]}`
