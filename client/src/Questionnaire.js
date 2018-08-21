@@ -39,6 +39,8 @@ class Questionnaire extends Component {
         debugger
         console.log(e.target.value)
         var date = e.target.value
+        var date_split = date.split("-");
+
         var date_regex = /^\d{2}\/\d{2}\/\d{4}$/ ;
         this.setState({ dateOfCompletion: date_regex.test(date) });
     }
