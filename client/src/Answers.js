@@ -11,6 +11,37 @@ class Question extends Component {
   }
 }
 
+class Answers extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    render() {
+        return(
+            <Container text className='questionnaire-style'>
+                <Form>
+                    <Header as='h1'>Questionnaire</Header><br />
+
+                    <Form.Field>
+                        <Header as='h4'>'When did you complete training?'</Header>
+                    </Form.Field>
+
+                    <Form.Field>
+                        <input type="date" name="training" />
+                    </Form.Field><br />
+
+                    <Question text='Did you find a job?' />
+                    <JobFoundRadioGroup />
+
+                    <Button primary type='submit'>Submit</Button><br /><br /><br />
+                </Form>
+            </Container>
+        );
+    }
+}
+
+
 class ApplyingToJobs extends Component {
   constructor(props) {
     super(props);
@@ -198,31 +229,5 @@ class JobFoundRadioGroup extends Component {
   }
 }
 
-class Answers extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return(
-      <Container text className='questionnaire-style'>
-        <Form>
-          <Header as='h1'>Questionnaire</Header><br />
-
-          <Question text='When did you complete training?' />
-          <Form.Field>
-            <input type="date" name="training" />
-          </Form.Field><br />
-
-          <Question text='Did you find a job?' />
-          <JobFoundRadioGroup />
-
-          <Button primary type='submit'>Submit</Button><br /><br /><br />
-        </Form>
-      </Container>
-    );
-  }
-}
 
 export default Answers;
