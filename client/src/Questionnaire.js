@@ -40,8 +40,8 @@ class Questionnaire extends Component {
         console.log(e.target.value)
         var date = e.target.value
         var date_split = date.split("-");
-
-        var date_regex = /^\d{2}\/\d{2}\/\d{4}$/ ;
+        var modified_date = `${date_split[1]}/${date_split[2]}/${date_split[0]}`
+        // var date_regex = /^\d{2}\/\d{2}\/\d{4}$/ ;
         this.setState({ dateOfCompletion: date_regex.test(date) });
     }
 
