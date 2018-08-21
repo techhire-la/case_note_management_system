@@ -29,6 +29,20 @@ class Questionnaire extends Component {
     this.handleJobsPerWeek = (e, { value }) => this.setState({ jobsPerWeek: value });
     this.handleAttendingDevelopment = (e, { value }) => this.setState({ attendingDevelopment: value });
     this.handleMeetWithRep = (e, { value }) => this.setState({ meetWithRep: value });
+
+    // this.handleSubmit = (e) => {
+    //     debugger
+    //     console.log(this.refs.value)
+    // }
+
+    this.handleDate = (e) => {
+        debugger
+        console.log(e.target.value)
+        var date = e.target.value
+        var date_regex = /^\d{2}\/\d{2}\/\d{4}$/ ;
+        this.setState({ dateOfCompletion: date_regex.test(date) });
+    }
+
   }
 
   moreJobInquiries() {
@@ -127,7 +141,7 @@ class Questionnaire extends Component {
             <Header as='h4'>When did you complete training?</Header>
           </Form.Field>
           <Form.Field>
-            <Input type="date" name="training" />
+            <Input type="date" name="training" ref="date-of-completion" onChange={this.handleDate}/>
           </Form.Field><br />
 
           <Form.Field>
@@ -144,6 +158,10 @@ class Questionnaire extends Component {
               onChange={this.handleFoundJob} />
           </Form.Field><br />
           {this.moreJobInquiries()}
+
+
+        <Button primary type='submit' onClick={this.handleSubmit}>Submit</Button><br /><br /><br />
+
         </Form>
       </Container>
     );
