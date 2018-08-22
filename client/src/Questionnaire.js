@@ -36,12 +36,12 @@ class Questionnaire extends Component {
     // }
 
     this.handleDate = (e) => {
-
         var date = e.target.value.split("-");
         var modified_date = `${date[1]}/${date[2]}/${date[0]}`
         this.setState({ dateOfCompletion: modified_date });
     }
 
+    this.handleResume = (e) => this.setState({ currentResume: e.target.value });
   }
 
   moreJobInquiries() {
@@ -90,7 +90,7 @@ class Questionnaire extends Component {
             <Header as='h4'>Upload your resume</Header>
           </Form.Field>
           <Form.Field>
-            <Input type="file" id="resume" name="resume" />
+            <Input type="file" id="resume" name="resume" onChange={this.handleResume} />
           </Form.Field>
           <br />
 

@@ -4,7 +4,7 @@ var router = express.Router();
 const user = require('../models/user');
 const mongoose = require('mongoose');
 //const client = require('../models/client');
-const client = require('../models/client');
+const client = require('../models/clients');
 
 
 var db = mongoose.connection;
@@ -20,9 +20,7 @@ router.get('/index', function(req, res, next) {
     db.collection('client').find().toArray(function (err, result) {
         if (err) return console.log(err);
 
-        for (var i=0 ; i < result.length; i++){
-            globalClient.push(result[i].name);
-        }
+
 
         res.render('index.ejs', {client: result}) ;
 
@@ -44,11 +42,11 @@ router.get('/index/:id', function(req, res, next) {
 
 router.post('/addname', function(req, res, next) {
 
-    if (req.body.username && req.body.password) {
+    if (req.body.email && req.body.password) {
 
         // create object with form inputs
         var userData = {
-            username: req.body.username,
+            username: req.body.email,
             password: req.body.password
         };
         // use schema's `create` method to insert document into Mongo
