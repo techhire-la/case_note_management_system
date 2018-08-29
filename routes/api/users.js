@@ -11,7 +11,7 @@ const passport = require('passport');
 // const validateLoginInput = require('../../validation/login');
 
 // Load User model
-const User = require('../../models/User');
+const User = require('../../models/user');
 
 // @route   GET api/users/test
 // @desc    Tests users route
@@ -28,12 +28,12 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-router.post('/register', (req, res) => {
-    console.log(req.body)
+router.post('/register', function(req, res) {
+    // console.log(req.body)
     // res.json({msg: 'register'})
     // res.json({msg: res.body})
 
-    console.log(User.findOne({ email: req.body.email }));
+    //console.log(User.findOne({ email: req.body.email }));
 
     User.findOne({ email: req.body.email }).then(user => {
         console.log("right before IF")
