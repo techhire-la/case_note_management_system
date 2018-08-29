@@ -158,13 +158,15 @@ router.post('/login', (req, res) => {
   });
 });
 
+router.get('/login', (req, res) => {
+
+  res.render('index.ejs', {client: result}) ;
+
+});
 // @route   GET api/users/current
 // @desc    Return current user
 // @access  Private
-router.get(
-  '/current',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.json({
       id: req.user.id,
       name: req.user.name,
