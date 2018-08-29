@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Header } from 'semantic-ui-react';
+import axios from 'axios';
 
 class Users extends Component {
     constructor(props) {
@@ -9,11 +10,23 @@ class Users extends Component {
             password: ""
         };
 
-        this.handleSubmit = (e) => {
-            console.log("you've hit the click")
-            // axios
+
+      this.handleSubmit = (e) => {
+            let formFields = {email: this.state.email , password: this.state.password};
+            this.setState = ({formFields});
+            axios.post('../../routes/api/users/login', formFields).then( res => {
+                console.log('work');
+            }).catch(e => console.log(e));
         }
+}
+
+    componenetDidMount(formFields) {
+
+
     }
+
+
+
 
   render() {
     return (

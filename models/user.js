@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
 // Create a Schema and a Model
 
@@ -13,11 +14,11 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    },
-    created_on: {
-        type: Date,
-        default: Date.now
-    }
+    }//,
+    // created_on: {
+    //     type: Date,
+    //     default: Date.now
+    // }
   //  password_confirmation:{type: String, required: true, unique: true},
     // timestamp: true
 
@@ -28,6 +29,7 @@ const userSchema = new Schema({
 
 // hash password before saving to databse'
 userSchema.pre('save', function(next) {
+
 
   var user = this;
   bcrypt.hash(user.password, 10, function(err, hash){
