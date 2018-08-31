@@ -1,11 +1,13 @@
 # Get Up and Running
 
-- front end: run npm client
-- back end: run npm server
+- front end: npm run client
+- back end: npm run server
+- There are 2 npm packages: one for client and one for the back end
+    - To access and install the client's, please be sure to enter into the client folder (i.e. /case_note_management_system/client) and then run `npm install`
+    - To run server side installs, it's much simpler. In the main folder, just run `npm install`. No need to change directories
 
 
 # YPI HTML and Express
-
 
 
 the Questionnaire folder contains the HTML page where the user would answer the questions. The format of the page
