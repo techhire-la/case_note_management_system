@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
-// const validateLoginInput = require('../../validation/login');
+const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const User = require('../../models/user');
@@ -28,41 +28,41 @@ router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-<<<<<<< HEAD
-router.post('/register', function(req, res) {
-    // console.log(req.body)
-    // res.json({msg: 'register'})
-    // res.json({msg: res.body})
-
-    //console.log(User.findOne({ email: req.body.email }));
-
-    User.findOne({ email: req.body.email }).then(user => {
-        console.log("right before IF")
-    if (user) {
-      errors.email = 'Email already exists';
-      return res.status(400).json(errors);
-    } else {
-
-        console.log("in the else")
-
-        const newUser = new User({
-            email: req.body.email,
-            password: req.body.password
-        });
-
-        console.log('newUser: ' + newUser)
-
-
-        newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(err => console.log(err));
-
-    }
-  });
-
-
-})
+//<<<<<<< HEAD
+// router.post('/register', function(req, res) {
+//     // console.log(req.body)
+//     // res.json({msg: 'register'})
+//     // res.json({msg: res.body})
+//
+//     //console.log(User.findOne({ email: req.body.email }));
+//
+//     User.findOne({ email: req.body.email }).then(user => {
+//         console.log("right before IF")
+//     if (user) {
+//       errors.email = 'Email already exists';
+//       return res.status(400).json(errors);
+//     } else {
+//
+//         console.log("in the else")
+//
+//         const newUser = new User({
+//             email: req.body.email,
+//             password: req.body.password
+//         });
+//
+//         console.log('newUser: ' + newUser)
+//
+//
+//         newUser
+//             .save()
+//             .then(user => res.json(user))
+//             .catch(err => console.log(err));
+//
+//     }
+//   });
+//
+//
+// })
 
 ///////////////////////////////
 
@@ -70,8 +70,8 @@ router.post('/register', function(req, res) {
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
-=======
->>>>>>> 73d77a431c45f4c84aa5abf67efe9412ff972e43
+//=======
+//>>>>>>> 73d77a431c45f4c84aa5abf67efe9412ff972e43
 // router.post('/register', (req, res) => {
 //     console.log(req.body)
 //     // res.json({msg: 'register'})
@@ -157,9 +157,9 @@ router.post('/register', function(req, res) {
 // @access  Public
 router.post('/register', (req, res) => {
 
-
+  console.log(req.body);
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  console.log('isValid: ' + isValid);
 
   // Check Validation
   if (!isValid) {
@@ -178,18 +178,14 @@ router.post('/register', (req, res) => {
       //   d: 'mm' // Default
       // });
 
-      const newUser = new User({
-        // name: req.body.name,
-        email: req.body.email,
-        // avatar,
-        password: req.body.password
-      });
-
-
       bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
           if (err) throw err;
-          newUser.password = hash;
+          const newUser = new User({
+            email: req.body.email,
+            password: hash
+          });
+
           newUser
             .save()
             .then(user => res.json(user))
@@ -200,11 +196,14 @@ router.post('/register', (req, res) => {
   });
 });
 
-// @route   GET api/users/login
+// @route   POST api/users/login
 // @desc    Login User / Returning JWT Token
 // @access  Public
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
+  console.log("I've hit the login");
   const { errors, isValid } = validateLoginInput(req.body);
+
+  console.log('isValid = ' + isValid);
 
   // Check Validation
   if (!isValid) {
@@ -222,10 +221,13 @@ router.post('/login', (req, res) => {
       return res.status(404).json(errors);
     }
 
+    console.log('password = ' + password);
+    console.log('user.password = ' + user.password);
     // Check Password
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
         // User Matched
+        console.log("The passwords matched! Loading payload..");
         const payload = { id: user.id, name: user.name}; // Create JWT Payload
         //, avatar: user.avatar
 
@@ -243,6 +245,7 @@ router.post('/login', (req, res) => {
         );
       } else {
         errors.password = 'Password incorrect';
+        console.log(errors.password);
         return res.status(400).json(errors);
       }
     });

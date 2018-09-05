@@ -10,36 +10,32 @@ class Users extends Component {
             password: ""
         };
 
+    this.handleSubmit = (e) => {
+          let formFields = {
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value
+          };
 
-      this.handleSubmit = (e) => {
-            let formFields = {email: this.state.email , password: this.state.password};
-            this.setState = ({formFields});
-            axios.post('../../routes/api/users/login', formFields).then( res => {
-                console.log('work');
-            }).catch(e => console.log(e));
-        }
-}
-
-    componenetDidMount(formFields) {
-
-
+          this.setState({formFields});
+          let url = `${window.location.protocol}//${window.location.host}/api/users/login`;
+          axios.post(url, formFields).then((res) => {
+              console.log('work');
+          }).catch((e) => console.log(e + " This printed form Users.js"));
+      }
     }
 
-
-
-
-  render() {
-    return (
-      <Container className='login-style'>
-        <Header as='h1'>Log In</Header>
-        <Form>
-          <Form.Input label='Email' id="email"/>
-          <Form.Input label='Password' type='password' id="password" />
-          <Button primary onClick={this.handleSubmit}type='submit'>Submit</Button>
-        </Form>
-      </Container>
-    );
-  }
+    render() {
+      return (
+        <Container className='login-style'>
+          <Header as='h1'>Log In</Header>
+          <Form>
+            <Form.Input label='Email' id="email"/>
+            <Form.Input label='Password' type='password' id="password" />
+            <Button primary onClick={this.handleSubmit} type='submit'>Submit</Button>
+          </Form>
+        </Container>
+      );
+    }
 }
 
 export default Users;
