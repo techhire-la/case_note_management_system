@@ -160,27 +160,57 @@ router.post('/register', (req, res) => {
 // @desc    Login User / Returning JWT Token
 // @access  Public
 router.post('/login', (req, res) => {
-  const { errors, isValid } = validateLoginInput(req.body);
+  // const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
 
   const email = req.body.email;
   const password = req.body.password;
 
+  console.log("in login")
+
   // Find user by email
+  // console.log("BEFORE USER FINDONE")
   User.findOne({ email }).then(user => {
     // Check for user
+    console.log("INSIDE USER FINDONE")
     if (!user) {
+      // console.log("INSIDE USER ERROR")
       errors.email = 'User not found';
       return res.status(404).json(errors);
     }
 
     // Check Password
+
+    console.log("Before Bcrypt")
+
+    // User.methods.comparePassword = function (password, user.password, callback) {
+    //   bcrypt.compare(password, user.password, function (err, isMatch) {
+    //
+    //     if (err) {
+    //       console.log("ERROR in isMatch");
+    //       return cb(err);
+    //     }
+    //
+    //     console.log("isMatch?")
+    //
+    //     return cb(null, isMatch);
+    //
+    //   })
+    //
+  // }
+
     bcrypt.compare(password, user.password).then(isMatch => {
+      // console.log("FORM PASSWORD")
+      // console.log(password)
+      // console.log("USER PASSWORD")
+      // console.log(user.password)
+      // console.log("INSIDE Bcrypt")
       if (isMatch) {
+        // console.log("INSIDE isMatch")
         // User Matched
         const payload = { id: user.id, name: user.name}; // Create JWT Payload
         //, avatar: user.avatar
@@ -198,6 +228,8 @@ router.post('/login', (req, res) => {
           }
         );
       } else {
+
+
         errors.password = 'Password incorrect';
         return res.status(400).json(errors);
       }
@@ -205,11 +237,14 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get('/login', (req, res) => {
 
-  res.render('index.ejs', {client: result}) ;
+// router.get('/login', (req, res) => {
+//
+//   res.render('index.ejs', {client: result}) ;
+//
+// });
 
-});
+
 // @route   GET api/users/current
 // @desc    Return current user
 // @access  Private

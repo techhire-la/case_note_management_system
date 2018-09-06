@@ -12,11 +12,18 @@ class Users extends Component {
 
 
       this.handleSubmit = (e) => {
+          console.log("In handle submit")
+          // var url = 'http://localhost:5000/'
             let formFields = {email: this.state.email , password: this.state.password};
             this.setState = ({formFields});
-            axios.post('../../routes/api/users/login', formFields).then( res => {
-                console.log('work');
-            }).catch(e => console.log(e));
+
+            // axios.post(url + '../../routes/api/users/login', formFields).then( res => {
+            //     console.log('work');
+            // }).catch(e => console.log(e));
+          axios.post('/api/users/login', formFields)
+              .then( res => {
+              console.log(res.data);
+          }).catch(e => console.log(e));
         }
 }
 
