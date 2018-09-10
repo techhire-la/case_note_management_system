@@ -28,19 +28,19 @@ const userSchema = new Schema({
 
 
 // hash password before saving to databse'
-userSchema.pre('save', function(next) {
-
-
-  var user = this;
-  bcrypt.hash(user.password, 10, function(err, hash){
-
-      if(err) {
-        return next(err);
-      }
-      user.password = hash;
-      next();
-    });
-});
+// userSchema.pre('save', function(next) {
+//
+//
+//   var user = this;
+//   bcrypt.hash(user.password, 10, function(err, hash){
+//
+//       if(err) {
+//         return next(err);
+//       }
+//       user.password = hash;
+//       next();
+//     });
+// });
 
 module.exports = mongoose.model('users', userSchema);
 
