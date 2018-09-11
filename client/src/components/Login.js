@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Form, Button, Header } from 'semantic-ui-react';
 import axios from 'axios';
 
-class Users extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,4 +43,4 @@ class Users extends Component {
     }
 }
 
-export default Users;
+export default Login;
