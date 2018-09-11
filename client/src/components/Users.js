@@ -25,26 +25,9 @@ class Users extends Component {
               console.log(res.data);
           }).catch(e => console.log(e));
         }
-}
+    }
 
-//     componenetDidMount(formFields) {
-//
-//
-// =======
-//     this.handleSubmit = (e) => {
-//           let formFields = {
-//             email: document.getElementById("email").value,
-//             password: document.getElementById("password").value
-//           };
-//
-//           this.setState({formFields});
-//           let url = `${window.location.protocol}//${window.location.host}/api/users/login`;
-//           axios.post(url, formFields).then((res) => {
-//               console.log('work');
-//           }).catch((e) => console.log(e + " This printed form Users.js"));
-//       }
-// >>>>>>> 8d2c5f0926b8a8e441ba20998ec39ac5506e7551
-//     }
+
 
     render() {
       return (
