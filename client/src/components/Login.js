@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Header } from 'semantic-ui-react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { loginUser } from '../../actions/authActions';
 
 class Login extends Component {
     constructor(props) {
-        super(props);
+        super();
         this.state = {
-            email: "",
-            password: ""
+            email: '',
+            password: '',
+            errors: {}
         };
 
 
