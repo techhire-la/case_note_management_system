@@ -4,7 +4,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { loginUser } from '../../actions/authActions';
+import { loginUser } from '../actions/authActions';
 
 class Login extends Component {
     constructor(props) {
@@ -15,8 +15,44 @@ class Login extends Component {
             errors: {}
         };
 
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-      this.handleSubmit = (e) => {
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+        }
+    }
+
+    onSubmit(e) {
+        e.preventDefault();
+
+        const userData = {
+            email: this.state.email,
+            password: this.state.password
+        };
+
+        this.props.loginUser(userData);
+    }
+
+    onChange(e) {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+
+      handleSubmit = (e) => {
           console.log("In handle submit")
           // var url = 'http://localhost:5000/'
             let formFields = {email: this.state.email , password: this.state.password};
@@ -30,7 +66,7 @@ class Login extends Component {
               console.log(res.data);
           }).catch(e => console.log(e));
         }
-    }
+
 
 
 
@@ -48,4 +84,15 @@ class Login extends Component {
     }
 }
 
-export default Login;
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

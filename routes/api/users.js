@@ -91,7 +91,7 @@ router.post('/register', (req, res) => {
       console.log('password = ' + password);
       console.log('user.password = ' + user.password);
       // Check Password
-      bcrypt.compare(password, user.password).then((isMatch) => {
+      bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           // User Matched
           console.log("The passwords matched! Loading payload..");
