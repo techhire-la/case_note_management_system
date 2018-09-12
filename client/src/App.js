@@ -9,6 +9,8 @@ import { setCurrentUser, logoutUser } from './actions/authActions';
 import { Provider } from 'react-redux';
 import store from './store';
 
+import './App.css';
+
 //import Answers from './Answers'
 import Questionnaire from './Questionnaire'
 
@@ -39,11 +41,13 @@ class App extends Component {
     return (
 
         <Provider store={store}>
-            <Router>
-                <div className="">
-                    <Route exact path="/" component={Login} />
-                </div>
-            </Router>
+            <div className="App">
+                <Router>
+                    <div className="container">
+                        <Route exact path="/" component={Login} />
+                    </div>
+                </Router>
+            </div>
         </Provider>
 
     );
@@ -54,8 +58,3 @@ export default App;
 
 // <Questionnaire />
 
-<Router>
-   <div className="">
-       <Route exact path="/login" component={Login} />
-   </div>
-</Router>
