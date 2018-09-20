@@ -44,16 +44,16 @@ class App extends Component {
     return (
 
         <Provider store={store}>
-            <div className="App">
-                <Router>
+            <Router>
+                <div className="App">
                     <div className="container">
                         <Route exact path="/" component={Login} />
                     </div>
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
                     </Switch>
-                </Router>
-            </div>
+                </div>
+            </Router>
         </Provider>
 
     );
