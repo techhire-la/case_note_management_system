@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const Client = require('../../models/clients');
 
 
-//
+
 // @route   GET api/clients/test
 // @desc    Tests clients route
 // @access  Public

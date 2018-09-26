@@ -12,6 +12,7 @@ const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const User = require('../../models/user');
+const Client = require('../../models/clients');
 
 // @route   GET api/users/test
 // @desc    Tests users route
@@ -146,12 +147,28 @@ router.post('/register', (req, res) => {
 
 
     router.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
-            res.json({
-                id: req.user.id,
-                name: req.user.name,
-                email: req.user.email
-            });
-        }
-    );
+        Client.find(function (err, clients) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Got res.json(clients)")
+                    console.log(clients)
+                    res.json({
+                        id: req.user.id,
+                        name: req.user.name,
+                        email: req.user.email,
+                        clients: req.user.clients
+                    });
+                }
+
+                // res.json({
+                //     id: req.user.id,
+                //     name: req.user.name,
+                //     email: req.user.email
+                // });
+            }
+        );
+    })
 
 module.exports = router;
