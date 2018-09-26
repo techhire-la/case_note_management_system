@@ -23,6 +23,12 @@ export default function(state = initialState, action) {
         clients: action.payload,
         loading: false
       };
+    // case GET_CLIENT_LIST:
+    //   return {
+    //     ...state,
+    //     clients: action.payload,
+    //     loading: false
+    //   };
     // case CLEAR_CURRENT_PROFILE:
     //   return {
     //     ...state,
