@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard } from '../../actions/dashboardActions';
 import Spinner from '../common/Spinner';
+import { Image, Item, Responsive, Segment , Form, Button, } from 'semantic-ui-react'
+import Client from './Client'
 
 class Dashboard extends Component {
 
@@ -56,9 +58,34 @@ class Dashboard extends Component {
 
   render(){
 
+    var clients = this.state.clients;
+
     return (
         <div>
           <h1>Client list</h1>
+
+
+            <div className="ui filterContainer catalogue_items">
+                <Item.Group>
+                    {
+                        clients.map((client, index) => (
+                            <Client
+                                key={index}
+                                first_name={client.first_name}
+                                last_name={client.last_name}
+                                email={client.email}
+                                phone={client.phone}
+
+                                count={index + 1}
+                            />
+                        ))
+                    }
+                </Item.Group>
+            </div>
+
+
+
+
         </div>
     )
   }
