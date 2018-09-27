@@ -12,6 +12,7 @@ const validateLoginInput = require('../../validation/login');
 
 // Load User model
 const User = require('../../models/user');
+const Client = require('../../models/clients');
 
 // @route   GET api/users/test
 // @desc    Tests users route
@@ -91,7 +92,7 @@ router.post('/register', (req, res) => {
       console.log('password = ' + password);
       console.log('user.password = ' + user.password);
       // Check Password
-      bcrypt.compare(password, user.password).then((isMatch) => {
+      bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           // User Matched
           console.log("The passwords matched! Loading payload..");
@@ -121,23 +122,53 @@ router.post('/register', (req, res) => {
 
 
 
-router.get('/login', (req, res) => {
-
-    res.render('index.ejs', {client: result}) ;
-
-});
+// router.get('/login', (req, res) => {
+//
+//     res.render('index.ejs', {client: result}) ;
+//
+// });
 
 
 
 // @route   GET api/users/current
 // @desc    Return current user
 // @access  Private
-  router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-        res.json({
-          id: req.user.id,
-          name: req.user.name,
-          email: req.user.email
-        });
-      }
-  );
+    router.get(
+        '/current',
+        passport.authenticate('jwt', { session: false }),
+        (req, res) => {
+            res.json({
+                id: req.user.id,
+                name: req.user.name,
+                email: req.user.email
+            });
+        }
+    );
+
+
+    router.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
+        Client.find(function (err, clients) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Got res.json(clients)")
+                    console.log(clients)
+                    res.json({
+                        id: req.user.id,
+                        name: req.user.name,
+                        email: req.user.email,
+                        clients: req.user.clients
+                    });
+                }
+
+                // res.json({
+                //     id: req.user.id,
+                //     name: req.user.name,
+                //     email: req.user.email
+                // });
+            }
+        );
+    })
+
 module.exports = router;
