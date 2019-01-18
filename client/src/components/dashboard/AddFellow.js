@@ -1,17 +1,14 @@
 import React from "react";
-import { Form } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 
 class AddFellow extends React.Component {
-  constructor(props) {
-    super();
-    this.state = {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      email: "",
-      address: ""
-    };
-  }
+  state = {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    address: ""
+  };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -71,9 +68,9 @@ class AddFellow extends React.Component {
             onChange={this.handleChange}
           />
         </Form.Group>
-        <button type="button btn btn-primary" onClick={this.handleAddFellow}>
+        <Button type="button" color="green" onClick={this.handleAddFellow}>
           Add New Fellow
-        </button>
+        </Button>
       </Form>
     );
   }
