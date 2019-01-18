@@ -16,7 +16,6 @@ import {
   Button
 } from "semantic-ui-react";
 import Client from "./Client";
-import { Navbar, NavLink } from "reactstrap";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -71,15 +70,21 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <Navbar>
-          <NavLink href="#">Add Fellow</NavLink>
-        </Navbar>
-        <h1>Client List</h1>
-        <div>
-          <a href="/login" onClick={this.onLogoutClick.bind(this)}>
-            LogOut
-          </a>
+        <div class="ui inverted segment">
+          <div class="ui inverted secondary pointing menu">
+            <a class="item active">Home</a>
+            <a class="item">Add Fellow</a>
+            <a
+              href="/login"
+              class="right menu item"
+              onClick={this.onLogoutClick.bind(this)}
+            >
+              <div class="ui primary button">Log Out</div>
+            </a>
+          </div>
         </div>
+        <h1>Client List</h1>
+        <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
             {clients.map((client, index) => (
