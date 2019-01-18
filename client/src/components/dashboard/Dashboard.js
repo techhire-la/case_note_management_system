@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -17,6 +16,7 @@ import {
   Button
 } from "semantic-ui-react";
 import Client from "./Client";
+import { Navbar, NavLink } from "reactstrap";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -69,14 +69,17 @@ class Dashboard extends Component {
   render() {
     var clients = this.state.clients;
 
-    const { isAuthenticated, user } = this.props.auth;
-
     return (
       <div>
-        <h1>Client list</h1>
-        <a href="/login" onClick={this.onLogoutClick.bind(this)}>
-          LogOut
-        </a>
+        <Navbar>
+          <NavLink href="#">Add Fellow</NavLink>
+        </Navbar>
+        <h1>Client List</h1>
+        <div>
+          <a href="/login" onClick={this.onLogoutClick.bind(this)}>
+            LogOut
+          </a>
+        </div>
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
             {clients.map((client, index) => (
