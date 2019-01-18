@@ -116,8 +116,10 @@ class Login extends Component {
                                 </div>
                                 <input type="submit" className="btn btn-info btn-block mt-4" />
                             </form>
+
                         </div>
                     </div>
+                    <p> Looking for the question form? Click <a href="/">here</a></p>
                 </div>
             </div>
         );
