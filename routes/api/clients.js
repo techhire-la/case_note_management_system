@@ -10,8 +10,30 @@ const Client = require("../../models/clients");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "Clients Works" }));
 
-router.post("/createFellow", (req, res) => res.json({ msg: "Clients Works" }));
-
+router.post("/createFellow", function(req, res, next) {
+  //   const { errors, isValid } = validateRegisterInput(req.body);
+  const errors = {};
+  Client.findOne({ email: req.body.email }).then(client => {
+    if (client) {
+      errors.email = "Email already exists";
+      return res.status(400).json(errors);
+    }
+  });
+  newClient
+    .save(
+      req.body.firstName,
+      req.body.lastName,
+      req.body.email,
+      req.body.phoneNumber,
+      req.body.address
+    )
+    .then(client => res.json(client))
+    .catch(err => console.log(err));
+  //   Client.create(req.body, function(err, post) {
+  //     if (err) return next(err);
+  //     res.json(post);
+  //   });
+});
 // @route   GET /all
 // @desc    get all cliens
 // @access  Public

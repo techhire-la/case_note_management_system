@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
+import axios from "axios";
 
 class AddFellow extends React.Component {
   state = {
@@ -14,9 +15,23 @@ class AddFellow extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleAddFellow() {
-    console.log("hello");
-  }
+  handleAddFellow = () => {
+    const { firstName, lastName, email, phoneNumber, address } = this.state;
+
+    axios
+      .post("/api/clients/createFellow", {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        address
+      })
+      .then(result => {
+        console.log("success!");
+        // this.props.history.push("/login");
+      })
+      .catch(err => console.error(err));
+  };
   render() {
     return (
       <Form style={{ padding: "5rem" }}>
