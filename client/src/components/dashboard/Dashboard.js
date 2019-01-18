@@ -24,8 +24,8 @@ class Dashboard extends Component {
       clients: [],
       loading: false,
       errors: {},
-      home: "item active",
-      addFellow: "item"
+      homeActive: true,
+      addFellowActive: false
     };
 
     // this.onChange = this.onChange.bind(this);
@@ -82,10 +82,16 @@ class Dashboard extends Component {
       <div>
         <div class="ui inverted segment">
           <div class="ui inverted secondary pointing menu">
-            <a class={this.state.home} onClick={() => this.homeFunc()}>
+            <a
+              class={this.state.homeActive ? "item active" : "item"}
+              onClick={() => this.homeFunc()}
+            >
               Home
             </a>
-            <a class={this.state.addFellow} onClick={() => this.addFellow()}>
+            <a
+              class={this.state.addFellowActive ? "item active" : "item"}
+              onClick={() => this.addFellow()}
+            >
               Add Fellow
             </a>
             <a
