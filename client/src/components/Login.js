@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Form, Button, Header } from 'semantic-ui-react';
+//import { Container, Form, Button, Header } from 'semantic-ui-react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from '../actions/authActions';
+import { Button } from 'semantic-ui-react';
+
+
+
 
 
 class Login extends Component {
@@ -84,7 +88,7 @@ class Login extends Component {
                                 Sign in!
                             </p>
                             <form onSubmit={this.onSubmit}>
-                                <div className="form-group">
+                                <div className="ui focus input">
                                     <input
                                         type="email"
                                         className={classnames('form-control form-control-lg', {
@@ -95,11 +99,13 @@ class Login extends Component {
                                         value={this.state.email}
                                         onChange={this.onChange}
                                     />
+
+
                                     {errors.email && (
                                         <div className="invalid-feedback">{errors.email}</div>
                                     )}
                                 </div>
-                                <div className="form-group">
+                                <div className="ui focus input">
                                     <input
                                         type="password"
                                         className={classnames('form-control form-control-lg', {
@@ -114,6 +120,7 @@ class Login extends Component {
                                         <div className="invalid-feedback">{errors.password}</div>
                                     )}
                                 </div>
+                                <button class="ui button">Submit</button>
                                 <input type="submit" className="btn btn-info btn-block mt-4" />
                             </form>
 
