@@ -13,9 +13,13 @@ class AddFellow extends React.Component {
     };
   }
 
-  handleChange = input => e => {
-    this.setState({ [input]: e.target.value });
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleAddFellow() {
+    console.log("hello");
+  }
   render() {
     return (
       <Form style={{ padding: "5rem" }}>
@@ -26,14 +30,16 @@ class AddFellow extends React.Component {
             id="form-subcomponent-shorthand-input-first-name"
             label="First name"
             placeholder="First name"
-            onChange={this.handleChange("firstName")}
+            name="firstName"
+            onChange={this.handleChange}
           />
           <Form.Input
             fluid
             id="form-subcomponent-shorthand-input-last-name"
             label="Last name"
             placeholder="Last name"
-            onChange={this.handleChange("lastName")}
+            name="lastName"
+            onChange={this.handleChange}
           />
         </Form.Group>
         <Form.Group widths="equal">
@@ -42,7 +48,8 @@ class AddFellow extends React.Component {
             id="form-subcomponent-shorthand-input-first-name"
             label="Phone Number"
             placeholder="Phone Number"
-            onChange={this.handleChange("phoneNumber")}
+            name="phoneNumber"
+            onChange={this.handleChange}
           />
 
           <Form.Input
@@ -50,7 +57,8 @@ class AddFellow extends React.Component {
             id="form-subcomponent-shorthand-input-first-name"
             label="Email"
             placeholder="Email"
-            onChange={this.handleChange("email")}
+            name="email"
+            onChange={this.handleChange}
           />
         </Form.Group>
         <Form.Group widths="equal">
@@ -59,7 +67,8 @@ class AddFellow extends React.Component {
             id="form-subcomponent-shorthand-input-first-name"
             label="Address"
             placeholder="Address"
-            onChange={this.handleChange("address")}
+            name="address"
+            onChange={this.handleChange}
           />
         </Form.Group>
         <button type="button btn btn-primary" onClick={this.handleAddFellow}>
