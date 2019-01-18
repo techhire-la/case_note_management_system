@@ -1,5 +1,6 @@
 # Get Up and Running
 
+- Download Redux Dev Tools for Google Chrome or you may run into an error originating at ```  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() ```
 - front end: npm run client
 - back end: npm run server
 - Run both on dev: npm run dev
