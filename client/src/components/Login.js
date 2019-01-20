@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from '../actions/authActions';
-import { Button } from 'semantic-ui-react';
+import { Button, Card, Form} from 'semantic-ui-react';
+import styles from './Login.css'
 
 
 
@@ -79,15 +80,53 @@ class Login extends Component {
         const { errors } = this.state;
 
         return (
+            <div>
+
+<div class="page-login">
+  <div class="ui centered grid container">
+    <div class="nine wide column">
+      <div class="ui icon warning message">
+          <i class="lock icon"></i>
+          <div class="content">
+            <div class="header">
+              Login failed!
+            </div>
+            <p>You might have misspelled your username or password!</p>
+          </div>
+        </div>
+      <div class="ui fluid card">
+        <div class="content">
+        <form class="ui form" method="POST">
+          <div class="field">
+            <label>User</label>
+            <input type="text" name="user" placeholder="User"/>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="pass" placeholder="Password"/>
+          </div>
+          <button class="ui primary labeled icon button" type="submit">
+            <i class="unlock alternate icon"></i>
+            Login
+          </button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
             <div className="login">
-                <div className="container">
+            
+                <div className="container col-md-8 ">
                     <div className="row">
-                        <div className="col-md-8 m-auto">
+                        <div className="col-md-8 ">
                             <h1 className="display-4 text-center">Log In</h1>
                             <p className="lead text-center">
                                 Sign in!
                             </p>
-                            <form onSubmit={this.onSubmit}>
+                            <form className="ui form"><div class="field"><label>
+
                                 <div className="ui focus input">
                                     <input
                                         type="email"
@@ -120,13 +159,16 @@ class Login extends Component {
                                         <div className="invalid-feedback">{errors.password}</div>
                                     )}
                                 </div>
-                                <button class="ui button">Submit</button>
-                                <input type="submit" className="btn btn-info btn-block mt-4" />
+                                <button onClick={this.onSubmit} class="ui button">Submit</button>
+                               
+                                </label></div>
                             </form>
 
                         </div>
                     </div>
                     <p> Looking for the question form? Click <a href="/">here</a></p>
+                </div>
+                
                 </div>
             </div>
         );
