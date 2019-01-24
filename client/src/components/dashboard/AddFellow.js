@@ -19,7 +19,7 @@ class AddFellow extends React.Component {
     const { firstName, lastName, email, phoneNumber, address } = this.state;
 
     axios
-      .post("/api/clients/createFellow", {
+      .post("/addFellow", {
         firstName,
         lastName,
         email,
