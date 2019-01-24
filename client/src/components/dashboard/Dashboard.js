@@ -81,26 +81,26 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <div class="ui inverted segment">
-          <div class="ui inverted secondary pointing menu">
+        <div className="ui inverted segment">
+          <div className="ui inverted secondary pointing menu">
             <a
-              class={this.state.homeActive ? "item active" : "item"}
+              className={this.state.homeActive ? "item active" : "item"}
               onClick={() => this.homeFunc()}
             >
               Home
             </a>
             <a
-              class={this.state.addFellowActive ? "item active" : "item"}
+              className={this.state.addFellowActive ? "item active" : "item"}
               onClick={() => this.addFellow()}
             >
               Add Fellow
             </a>
             <a
               href="/login"
-              class="right menu item"
+              className="right menu item"
               onClick={this.onLogoutClick.bind(this)}
             >
-              <div class="ui primary button">Log Out</div>
+              <div className="ui primary button">Log Out</div>
             </a>
           </div>
         </div>
