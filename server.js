@@ -57,7 +57,7 @@ let schema = new Schema(
   }
 );
 
-let Model = mongoos.model("Model", schema);
+let Model = mongoose.model("Model", schema);
 mongoose.connect("mongodb://localhost:27017/testaro");
 
 app.use(bodyParser.urlencoded({ extended: true }));
