@@ -73,6 +73,7 @@ class Dashboard extends Component {
 
   addFellow() {
     this.setState({ homeActive: false, addFellowActive: true });
+    this.props.history.push("/addfellow");
   }
 
   render() {
