@@ -13,7 +13,6 @@ router.get("/test", (req, res) => res.json({ msg: "Clients Works" }));
 router.post("/addFellow", function(req, res, next) {
   //   const { errors, isValid } = validateRegisterInput(req.body);
   console.log("hit addFellow route");
-  debugger;
   const errors = {};
   Client.findOne({ email: req.body.email }).then(client => {
     if (client) {
