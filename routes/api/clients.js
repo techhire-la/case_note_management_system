@@ -22,10 +22,10 @@ router.post("/addFellow", function(req, res, next) {
     }
   });
   const newClient = new Client({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    first_name: req.body.firstName,
+    last_name: req.body.lastName,
     email: req.body.email,
-    phoneNumber: req.body.phoneNumber,
+    phone: req.body.phoneNumber,
     address: req.body.address
   });
   newClient
