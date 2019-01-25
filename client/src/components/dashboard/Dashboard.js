@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
@@ -24,7 +23,9 @@ class Dashboard extends Component {
     this.state = {
       clients: [],
       loading: false,
-      errors: {}
+      errors: {},
+      homeActive: true,
+      addFellowActive: false
     };
 
     // this.onChange = this.onChange.bind(this);
@@ -66,17 +67,45 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  homeFunc() {
+    this.setState({ homeActive: true, addFellowActive: false });
+  }
+
+  addFellow() {
+    this.setState({ homeActive: false, addFellowActive: true });
+    this.props.history.push("/addfellow");
+  }
+
   render() {
     var clients = this.state.clients;
 
-    const { isAuthenticated, user } = this.props.auth;
-
     return (
       <div>
-        <h1>Client list</h1>
-        <a href="/login" onClick={this.onLogoutClick.bind(this)}>
-          LogOut
-        </a>
+        <div className="ui inverted segment">
+          <div className="ui inverted secondary pointing menu">
+            <a
+              className={this.state.homeActive ? "item active" : "item"}
+              onClick={() => this.homeFunc()}
+            >
+              Home
+            </a>
+            <a
+              className={this.state.addFellowActive ? "item active" : "item"}
+              onClick={() => this.addFellow()}
+            >
+              Add Fellow
+            </a>
+            <a
+              href="/login"
+              className="right menu item"
+              onClick={this.onLogoutClick.bind(this)}
+            >
+              <div className="ui primary button">Log Out</div>
+            </a>
+          </div>
+        </div>
+        <h1>Client List</h1>
+        <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
             {clients.map((client, index) => (
