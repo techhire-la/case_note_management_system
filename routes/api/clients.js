@@ -10,8 +10,10 @@ const Client = require("../../models/clients");
 // @access  Public
 router.get("/test", (req, res) => res.json({ msg: "Clients Works" }));
 
-router.post("/createFellow", function(req, res, next) {
+router.post("/addFellow", function(req, res, next) {
   //   const { errors, isValid } = validateRegisterInput(req.body);
+  console.log("hit addFellow route");
+  debugger;
   const errors = {};
   Client.findOne({ email: req.body.email }).then(client => {
     if (client) {
@@ -19,14 +21,15 @@ router.post("/createFellow", function(req, res, next) {
       return res.status(400).json(errors);
     }
   });
+  const newClient = new Client({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    phoneNumber: req.body.phoneNumber,
+    address: req.body.address
+  });
   newClient
-    .save(
-      req.body.firstName,
-      req.body.lastName,
-      req.body.email,
-      req.body.phoneNumber,
-      req.body.address
-    )
+    .save()
     .then(client => res.json(client))
     .catch(err => console.log(err));
   //   Client.create(req.body, function(err, post) {

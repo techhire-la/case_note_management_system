@@ -17,9 +17,10 @@ class AddFellow extends React.Component {
 
   handleAddFellow = () => {
     const { firstName, lastName, email, phoneNumber, address } = this.state;
-
+    console.log("hit handleAddFellow");
+    debugger;
     axios
-      .post("/addFellow", {
+      .post("/api/clients/addFellow", {
         firstName,
         lastName,
         email,
