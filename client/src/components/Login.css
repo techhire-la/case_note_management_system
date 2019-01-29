@@ -1,8 +1,9 @@
 .container{
     /* padding: 2px 16px; */
-     /* border: 0 4px 30px ;  */
-    /* transition: 0.3s; */
-    width: 70%;
+     border: 0 4px 30px ;  
+    transition: 0.3s; 
+    /* width: 70%; */
+
    
 
 }
@@ -12,5 +13,11 @@ body {
   }
   
   .page-login {
-    margin-top: 25px;
+    position: absolute;
+    right: 17em;
+    width: 70em;
+    margin-top: 5em;
+    
+    padding: 10px;
+    
   }
