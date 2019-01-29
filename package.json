@@ -24,7 +24,13 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pug": "^2.0.3",
+<<<<<<< HEAD
     "redux": "^4.0.1",
+=======
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "reactstrap": "^7.1.0",
+>>>>>>> 2cc46ad474ceddedb566c667518021656e45ed92
     "validator": "^9.4.1"
   },
   "devDependencies": {
