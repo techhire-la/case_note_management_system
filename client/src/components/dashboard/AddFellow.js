@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import axios from "axios";
+import { NotificationManager } from "react-notifications";
 
 class AddFellow extends React.Component {
   state = {
@@ -27,10 +28,17 @@ class AddFellow extends React.Component {
         address
       })
       .then(result => {
-        console.log("success!");
-        // this.props.history.push("/login");
+        NotificationManager.success(
+          "You have successfully added a fellow to the system",
+          "Success"
+        );
+        this.props.history.push("/login");
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.log("error");
+        NotificationManager.error("Fellow was not added", "Error");
+        console.error(err);
+      });
   };
   render() {
     return (
