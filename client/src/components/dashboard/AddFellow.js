@@ -35,6 +35,7 @@ class AddFellow extends React.Component {
         this.props.history.push("/login");
       })
       .catch(err => {
+        debugger;
         console.log("error");
         NotificationManager.error("Fellow was not added", "Error");
         console.error(err);
