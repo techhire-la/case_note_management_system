@@ -2,7 +2,10 @@ import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import axios from "axios";
 import "react-notifications/lib/notifications.css";
-import { NotificationManager } from "react-notifications";
+import {
+  NotificationManager,
+  NotificationContainer
+} from "react-notifications";
 
 class AddFellow extends React.Component {
   state = {
@@ -38,65 +41,71 @@ class AddFellow extends React.Component {
       .catch(err => {
         debugger;
         console.log("error");
-        NotificationManager.error("Fellow was not added", "Error");
+        NotificationManager.error("Error message", "Click me!", 5000, () => {
+          alert("callback");
+        });
         console.error(err);
       });
   };
   render() {
     return (
-      <Form style={{ padding: "5rem" }}>
-        <h3>Add Fellow</h3>
-        <Form.Group widths="equal">
-          <Form.Input
-            fluid
-            id="form-subcomponent-shorthand-input-first-name"
-            label="First name"
-            placeholder="First name"
-            name="firstName"
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            fluid
-            id="form-subcomponent-shorthand-input-last-name"
-            label="Last name"
-            placeholder="Last name"
-            name="lastName"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Input
-            fluid
-            id="form-subcomponent-shorthand-input-first-name"
-            label="Phone Number"
-            placeholder="Phone Number"
-            name="phoneNumber"
-            onChange={this.handleChange}
-          />
+      <div>
+        <Form style={{ padding: "5rem" }}>
+          <h3>Add Fellow</h3>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              id="form-subcomponent-shorthand-input-first-name"
+              label="First name"
+              placeholder="First name"
+              name="firstName"
+              onChange={this.handleChange}
+            />
+            <Form.Input
+              fluid
+              id="form-subcomponent-shorthand-input-last-name"
+              label="Last name"
+              placeholder="Last name"
+              name="lastName"
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              id="form-subcomponent-shorthand-input-first-name"
+              label="Phone Number"
+              placeholder="Phone Number"
+              name="phoneNumber"
+              onChange={this.handleChange}
+            />
 
-          <Form.Input
-            fluid
-            id="form-subcomponent-shorthand-input-first-name"
-            label="Email"
-            placeholder="Email"
-            name="email"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Form.Group widths="equal">
-          <Form.Input
-            fluid
-            id="form-subcomponent-shorthand-input-first-name"
-            label="Address"
-            placeholder="Address"
-            name="address"
-            onChange={this.handleChange}
-          />
-        </Form.Group>
-        <Button type="button" color="green" onClick={this.handleAddFellow}>
-          Add New Fellow
-        </Button>
-      </Form>
+            <Form.Input
+              fluid
+              id="form-subcomponent-shorthand-input-first-name"
+              label="Email"
+              placeholder="Email"
+              name="email"
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Group widths="equal">
+            <Form.Input
+              fluid
+              id="form-subcomponent-shorthand-input-first-name"
+              label="Address"
+              placeholder="Address"
+              name="address"
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Button type="button" color="green" onClick={this.handleAddFellow}>
+            Add New Fellow
+          </Button>
+          <NotificationContainer />
+        </Form>
+        <NotificationContainer />
+      </div>
     );
   }
 }

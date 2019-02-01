@@ -17,6 +17,7 @@ import "./App.css";
 
 //import Answers from './Answers'
 import Questionnaire from "./Questionnaire";
+import Example from "./components/dashboard/Example";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -52,6 +53,7 @@ class App extends Component {
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/addfellow" component={AddFellow} />
+              <PrivateRoute exact path="/example" component={Example} />
             </Switch>
           </div>
         </Router>
