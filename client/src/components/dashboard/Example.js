@@ -5,6 +5,10 @@ import {
 } from "react-notifications";
 
 class Example extends React.Component {
+  btnInfo = () => {
+    NotificationManager.info("Info message");
+  };
+
   createNotification = type => {
     return () => {
       switch (type) {
@@ -60,6 +64,8 @@ class Example extends React.Component {
         >
           Error
         </button>
+
+        <button onClick={this.btnInfo}> New Button</button>
 
         <NotificationContainer />
       </div>

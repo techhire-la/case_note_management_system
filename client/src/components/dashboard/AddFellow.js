@@ -16,6 +16,17 @@ class AddFellow extends React.Component {
     address: ""
   };
 
+  notificationSuccess = () => {
+    NotificationManager.success(
+      "You have successfully added a fellow to the system",
+      "Success"
+    );
+  };
+
+  notificationError = () => {
+    NotificationManager.error("There was an error. Please try again.", "Error");
+  };
+
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -32,18 +43,13 @@ class AddFellow extends React.Component {
         address
       })
       .then(result => {
-        NotificationManager.success(
-          "You have successfully added a fellow to the system",
-          "Success"
-        );
+        this.notificationSuccess();
         this.props.history.push("/login");
       })
       .catch(err => {
         debugger;
         console.log("error");
-        NotificationManager.error("Error message", "Click me!", 5000, () => {
-          alert("callback");
-        });
+        this.notificationError();
         console.error(err);
       });
   };
@@ -102,9 +108,7 @@ class AddFellow extends React.Component {
           <Button type="button" color="green" onClick={this.handleAddFellow}>
             Add New Fellow
           </Button>
-          <NotificationContainer />
         </Form>
-        <NotificationContainer />
       </div>
     );
   }
