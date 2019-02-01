@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "semantic-ui-react";
 import axios from "axios";
+import "react-notifications/lib/notifications.css";
 import { NotificationManager } from "react-notifications";
 
 class AddFellow extends React.Component {
