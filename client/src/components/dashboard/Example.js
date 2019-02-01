@@ -6,7 +6,7 @@ import {
 
 class Example extends React.Component {
   btnInfo = () => {
-    NotificationManager.info("Info message");
+    return NotificationManager.info("Info message");
   };
 
   createNotification = type => {

@@ -109,6 +109,7 @@ class AddFellow extends React.Component {
             Add New Fellow
           </Button>
         </Form>
+        <NotificationContainer />
       </div>
     );
   }
