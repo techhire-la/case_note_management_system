@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import SearchClients from "./SearchClients";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard } from "../../actions/dashboardActions";
@@ -39,7 +40,7 @@ class Dashboard extends Component {
     axios
       .get("api/clients/all")
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
 
         this.setState({ clients: res.data });
       })
@@ -105,6 +106,7 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
+        <SearchClients/>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
