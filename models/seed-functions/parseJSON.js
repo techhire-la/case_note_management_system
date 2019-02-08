@@ -29,6 +29,7 @@ function parseJson(json) {
             element.last_name = lastName
             element.phone = phoneNum
             element.address = addy
+            element.active = true
 
             newJSON.push(element)
         }else{

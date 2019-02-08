@@ -8,7 +8,8 @@ const clientSchema = new Schema({
   last_name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
-  address: { type: String }
+  address: { type: String },
+  active: {type: Boolean, required: true}
 });
 
 const Client = mongoose.model("Client", clientSchema);
