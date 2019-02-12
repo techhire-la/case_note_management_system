@@ -47,7 +47,6 @@ class AddFellow extends React.Component {
         this.props.history.push("/login");
       })
       .catch(err => {
-        debugger;
         console.log("error");
         this.notificationError();
         console.error(err);
