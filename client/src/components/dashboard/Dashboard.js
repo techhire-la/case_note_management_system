@@ -27,6 +27,7 @@ class Dashboard extends Component {
       errors: {},
       homeActive: true,
       addFellowActive: false
+      results: []
     };
 
     // this.onChange = this.onChange.bind(this);
@@ -77,6 +78,19 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
+  handleClientSearch = value => {
+
+    if (value.length < 1) {
+      this.setState({
+        results: [],
+      })
+    }else{
+      this.setState({
+        results: value,
+      })
+    }
+  }
+
   render() {
     var clients = this.state.clients;
 
@@ -106,7 +120,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <SearchClients/>
+
+        <SearchClients clients={this.state.clients} handleClientSearch={this.handleClientSearch}/>
+
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
@@ -138,3 +154,6 @@ export default connect(
   mapStateToProps,
   { logoutUser }
 )(Dashboard);
+
+
+{/* <SearchClients clients={this.state.clients} handleClientSearch={this.handleClientSearch}/> */}
