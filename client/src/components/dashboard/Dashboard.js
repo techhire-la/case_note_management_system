@@ -26,8 +26,9 @@ class Dashboard extends Component {
       loading: false,
       errors: {},
       homeActive: true,
-      addFellowActive: false
-      results: []
+      addFellowActive: false,
+      results: [],
+      searchValue: ''
     };
 
     // this.onChange = this.onChange.bind(this);
@@ -43,7 +44,7 @@ class Dashboard extends Component {
       .then(res => {
         // console.log(res.data);
 
-        this.setState({ clients: res.data });
+        this.setState({ clients: res.data, results: res.data });
       })
       .catch(e => console.log(e));
 
@@ -82,7 +83,7 @@ class Dashboard extends Component {
 
     if (value.length < 1) {
       this.setState({
-        results: [],
+        results: this.state.results,
       })
     }else{
       this.setState({
@@ -92,7 +93,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    var clients = this.state.clients;
+    var clients = this.state.results;
 
     return (
       <div>
@@ -121,7 +122,7 @@ class Dashboard extends Component {
         </div>
         <h1>Client List</h1>
 
-        <SearchClients clients={this.state.clients} handleClientSearch={this.handleClientSearch}/>
+        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch}/>
 
         <div />
         <div className="ui filterContainer catalogue_items">

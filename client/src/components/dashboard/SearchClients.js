@@ -40,19 +40,22 @@ export default class SearchClients extends Component {
           this.resetComponent()
         }
       
+        // resetComponent = () => this.setState({ results: this.props.clients , value: ''})
         resetComponent = () => this.setState({ results: this.props.clients , value: ''})
             
         // handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
       
         handleSearchChange = (e, { value }) => {
-          this.setState({ isLoading: true, value })
+          this.setState({ value })
+        //   const res = this.state.results
       
           setTimeout(() => {
-            // if (this.state.value.length < 1) return this.resetComponent()
+            if (this.state.value.length < 1) return this.resetComponent()
+
       
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
             const isMatch = result => (re.test(result.first_name) || re.test(result.last_name))
-            const client_list = _.filter(this.props.clients, isMatch)
+            const client_list = _.filter(this.props.results, isMatch)
             this.props.handleClientSearch(client_list)
         //     this.setState({
               
@@ -64,40 +67,22 @@ export default class SearchClients extends Component {
         }
   
     render() {
-      const clients = this.props.clients
-      const { isLoading, value, results} = this.state
+    //   const clients = this.props.results
+      const { value, results, clients} = this.props
       
   
       return (
         <Grid>
-          <Grid.Column width={6}>
+          <Grid.Column width={12}>
 
             <Input placeholder='Search...'  
-                onChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-                
+                onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
                 results={results}
                 value={value}
                 {...this.props}    
             />
           </Grid.Column>
-          <Grid.Column width={10}>
-            <Segment>
-              <Header>State</Header>
-              <pre style={{ overflowX: 'auto' }}>{JSON.stringify(this.state, null, 2)}</pre>
-              <Item.Group>
-                {clients.map((client, index) => (
-                <Client
-                    key={index}
-                    first_name={client.first_name}
-                    last_name={client.last_name}
-                    email={client.email}
-                    phone={client.phone}
-                    count={index + 1}
-                />
-                ))}
-          </Item.Group>
-            </Segment>
-          </Grid.Column>
+
         </Grid>
       )
     }
@@ -108,3 +93,22 @@ export default class SearchClients extends Component {
 //   onResultSelect={this.handleResultSelect}
 
 // />
+
+{/* <Grid.Column width={10}>
+<Segment>
+  <Header>State</Header>
+  <pre style={{ overflowX: 'auto' }}>{JSON.stringify(this.state, null, 2)}</pre>
+  <Item.Group>
+    {clients.map((client, index) => (
+    <Client
+        key={index}
+        first_name={client.first_name}
+        last_name={client.last_name}
+        email={client.email}
+        phone={client.phone}
+        count={index + 1}
+    />
+    ))}
+</Item.Group>
+</Segment>
+</Grid.Column> */}
