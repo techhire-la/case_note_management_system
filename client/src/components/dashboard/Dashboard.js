@@ -79,6 +79,10 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
+  handleSearchValue = value => {
+    this.setState({ value })
+  }
+
   handleClientSearch = value => {
 
     if (value.length < 1) {
@@ -90,6 +94,13 @@ class Dashboard extends Component {
         results: value,
       })
     }
+  }
+
+  handleSearchReset = () => {
+    debugger
+    // const clients = this.state.clients
+    console.log(this.clients)
+    this.setState({ results: this.clients, value: ''})
   }
 
   render() {
@@ -122,7 +133,8 @@ class Dashboard extends Component {
         </div>
         <h1>Client List</h1>
 
-        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch}/>
+        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
+
 
         <div />
         <div className="ui filterContainer catalogue_items">
@@ -157,4 +169,4 @@ export default connect(
 )(Dashboard);
 
 
-{/* <SearchClients clients={this.state.clients} handleClientSearch={this.handleClientSearch}/> */}
+// {/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}

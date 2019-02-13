@@ -36,21 +36,24 @@ import { Search, Grid, Header, Segment, Button, Input, Item } from 'semantic-ui-
 
 export default class SearchClients extends Component {
     
-        componentWillMount() {
-          this.resetComponent()
-        }
+        // componentWillMount() {
+        //   this.resetComponent()
+        // }
       
         // resetComponent = () => this.setState({ results: this.props.clients , value: ''})
-        resetComponent = () => this.setState({ results: this.props.clients , value: ''})
+        resetComponent = () => {
+            this.props.handleSearchReset()
+        }
             
         // handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
       
         handleSearchChange = (e, { value }) => {
-          this.setState({ value })
+            this.props.handleSearchValue(value)
+        //   this.setState({ value })
         //   const res = this.state.results
       
           setTimeout(() => {
-            if (this.state.value.length < 1) return this.resetComponent()
+            if (this.props.value.length < 1) return this.resetComponent()
 
       
             const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
@@ -79,7 +82,6 @@ export default class SearchClients extends Component {
                 onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
                 results={results}
                 value={value}
-                {...this.props}    
             />
           </Grid.Column>
 
@@ -112,3 +114,5 @@ export default class SearchClients extends Component {
 </Item.Group>
 </Segment>
 </Grid.Column> */}
+
+// {...this.props}  
