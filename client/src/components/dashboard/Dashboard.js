@@ -22,6 +22,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       clients: [],
+      sortDirection: 'DESC',
       loading: false,
       errors: {},
       homeActive: true,
@@ -76,6 +77,20 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
+  sort = (field, direction) => {
+      this.setState({
+        clients: this.state.clients.sort(function(a, b) {
+          if (a[field] > b[field]) {
+              return direction == 'DESC' ? 1 : -1;
+          } else if (a[field] < b[field]) {
+              return direction == 'DESC' ? -1 : 1;
+          }
+          return 0;
+        }),
+        sortDirection: direction == 'DESC' ? 'ASC' : 'DESC'
+      })
+  }
+
   render() {
     var clients = this.state.clients;
 
@@ -105,6 +120,7 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
+        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>Sort by Last Name</button>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
