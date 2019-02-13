@@ -14,9 +14,11 @@ import {
   Responsive,
   Segment,
   Form,
-  Button
+  Button,
+  Input
 } from "semantic-ui-react";
 import Client from "./Client";
+import _ from 'lodash';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -34,9 +36,13 @@ class Dashboard extends Component {
     // this.onChange = this.onChange.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleSearchReset = this.handleSearchReset(this);
+    // this.handleClientSearch = this.handleClientSearch(this);
+    // this.handleSearchValue = this.handleSearchValue(this);
+
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log("component did mount");
 
     axios
@@ -99,9 +105,42 @@ class Dashboard extends Component {
   handleSearchReset = () => {
     debugger
     // const clients = this.state.clients
-    console.log(this.clients)
-    this.setState({ results: this.clients, value: ''})
+    // console.log(this.clients)
+    this.setState({ results: this.state.clients, value: ''})
   }
+
+  ///////////////////////////////
+
+
+  resetComponent = () => {
+
+    this.handleSearchReset()
+}
+    
+// handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
+
+handleSearchChange = (e, { value }) => {
+
+    this.handleSearchValue(value)
+//   this.setState({ value })
+//   const res = this.state.results
+
+  setTimeout(() => {
+    if (this.state.value.length < 1) return this.resetComponent()
+
+
+    const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+    const isMatch = result => (re.test(result.first_name) || re.test(result.last_name))
+    const client_list = _.filter(this.state.results, isMatch)
+    this.handleClientSearch(client_list)
+//     this.setState({
+      
+//       results: _.filter(this.props.clients, isMatch),
+//     })
+  }, 300)
+
+  
+}
 
   render() {
     var clients = this.state.results;
@@ -133,8 +172,10 @@ class Dashboard extends Component {
         </div>
         <h1>Client List</h1>
 
-        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
+        <Input placeholder='Search...'  
+                onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
 
+            />
 
         <div />
         <div className="ui filterContainer catalogue_items">
@@ -170,3 +211,4 @@ export default connect(
 
 
 // {/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}
+{/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}

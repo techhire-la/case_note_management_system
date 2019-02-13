@@ -42,12 +42,14 @@ export default class SearchClients extends Component {
       
         // resetComponent = () => this.setState({ results: this.props.clients , value: ''})
         resetComponent = () => {
+
             this.props.handleSearchReset()
         }
             
         // handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
       
         handleSearchChange = (e, { value }) => {
+
             this.props.handleSearchValue(value)
         //   this.setState({ value })
         //   const res = this.state.results
