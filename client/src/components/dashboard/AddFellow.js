@@ -18,7 +18,7 @@ class AddFellow extends React.Component {
 
   notificationSuccess = () => {
     NotificationManager.success(
-      "You have successfully added a fellow to the system",
+      "You have successfully added a fellow to the system.",
       "Success"
     );
   };
@@ -29,6 +29,10 @@ class AddFellow extends React.Component {
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  redirect = () => {
+    this.props.history.push("/login");
   };
 
   handleAddFellow = () => {
@@ -43,8 +47,9 @@ class AddFellow extends React.Component {
         address
       })
       .then(result => {
+        console.log("success");
         this.notificationSuccess();
-        this.props.history.push("/login");
+        setTimeout(this.redirect(), 3000);
       })
       .catch(err => {
         console.log("error");
