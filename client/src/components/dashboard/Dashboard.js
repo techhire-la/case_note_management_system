@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import SearchClients from "./SearchClients";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard } from "../../actions/dashboardActions";
@@ -13,9 +14,11 @@ import {
   Responsive,
   Segment,
   Form,
-  Button
+  Button,
+  Input
 } from "semantic-ui-react";
 import Client from "./Client";
+import _ from 'lodash';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -26,23 +29,22 @@ class Dashboard extends Component {
       loading: false,
       errors: {},
       homeActive: true,
-      addFellowActive: false
+      addFellowActive: false,
+      results: [],
+      searchValue: ''
     };
 
-    // this.onChange = this.onChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log("component did mount");
 
     axios
       .get("api/clients/all")
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
 
-        this.setState({ clients: res.data });
+        this.setState({ clients: res.data, results: res.data });
       })
       .catch(e => console.log(e));
 
@@ -68,6 +70,8 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  ////////////// ADD FELLOW ////////////////////////////////
+
   homeFunc() {
     this.setState({ homeActive: true, addFellowActive: false });
   }
@@ -76,6 +80,32 @@ class Dashboard extends Component {
     this.setState({ homeActive: false, addFellowActive: true });
     this.props.history.push("/addfellow");
   }
+
+
+  ///// HANDLE SEARCH ////////////////////////////
+
+  handleSearchValue = value => {
+    this.setState({ searchValue: value })
+  }
+
+  handleClientSearch = value => {
+
+    if (value.length < 1) {
+      this.setState({
+        results: this.state.results,
+      })
+    }else{
+      this.setState({
+        results: value,
+      })
+    }
+  }
+
+  handleSearchReset = () => {
+    this.setState({ results: this.state.clients, value: ''})
+  }
+  ////////////////////////////////////////////////
+
 
   sort = (field, direction) => {
       this.setState({
@@ -92,7 +122,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    var clients = this.state.clients;
+    var clients = this.state.results;
 
     return (
       <div>
@@ -120,6 +150,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
+
+        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
+
         <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>Sort by Last Name</button>
         <div />
         <div className="ui filterContainer catalogue_items">
@@ -152,3 +185,4 @@ export default connect(
   mapStateToProps,
   { logoutUser }
 )(Dashboard);
+
