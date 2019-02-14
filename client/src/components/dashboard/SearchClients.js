@@ -11,9 +11,9 @@ class SearchClients extends Component {
         super(props);
     }
 
-        // componentWillMount() {
-        //   this.resetComponent()
-        // }
+        componentWillMount() {
+          this.resetComponent()
+        }
       
         resetComponent = () => {
             this.props.handleSearchReset()

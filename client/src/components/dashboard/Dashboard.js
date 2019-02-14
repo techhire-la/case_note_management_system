@@ -70,6 +70,8 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  ////////////// ADD FELLOW ////////////////////////////////
+
   homeFunc() {
     this.setState({ homeActive: true, addFellowActive: false });
   }
@@ -78,6 +80,9 @@ class Dashboard extends Component {
     this.setState({ homeActive: false, addFellowActive: true });
     this.props.history.push("/addfellow");
   }
+
+
+  ///// HANDLE SEARCH ////////////////////////////
 
   handleSearchValue = value => {
     this.setState({ searchValue: value })
@@ -99,6 +104,7 @@ class Dashboard extends Component {
   handleSearchReset = () => {
     this.setState({ results: this.state.clients, value: ''})
   }
+  ////////////////////////////////////////////////
 
 
   sort = (field, direction) => {
