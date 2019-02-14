@@ -21,6 +21,7 @@ class AddFellow extends React.Component {
       "You have successfully added a fellow to the system.",
       "Success"
     );
+    // this.props.history.push("/dashboard");
   };
 
   notificationError = () => {
@@ -32,7 +33,9 @@ class AddFellow extends React.Component {
   };
 
   redirect = () => {
-    this.props.history.push("/login");
+    setTimeout(function() {
+      this.props.history.push("/dashboard");
+    }, 2000);
   };
 
   handleAddFellow = () => {
@@ -49,7 +52,7 @@ class AddFellow extends React.Component {
       .then(result => {
         console.log("success");
         this.notificationSuccess();
-        setTimeout(this.redirect(), 3000);
+        this.redirect();
       })
       .catch(err => {
         console.log("error");

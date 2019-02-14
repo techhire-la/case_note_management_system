@@ -16,6 +16,7 @@ import {
   Button
 } from "semantic-ui-react";
 import Client from "./Client";
+import AddFellow from "./AddFellow";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -104,22 +105,28 @@ class Dashboard extends Component {
             </a>
           </div>
         </div>
-        <h1>Client List</h1>
-        <div />
-        <div className="ui filterContainer catalogue_items">
-          <Item.Group>
-            {clients.map((client, index) => (
-              <Client
-                key={index}
-                first_name={client.first_name}
-                last_name={client.last_name}
-                email={client.email}
-                phone={client.phone}
-                count={index + 1}
-              />
-            ))}
-          </Item.Group>
-        </div>
+
+        {this.state.homeActive ? (
+          <div>
+            <h1>Client List</h1>
+            <div />
+            <div className="ui filterContainer catalogue_items">
+              <Item.Group>
+                {clients.map((client, index) => (
+                  <Client
+                    key={index}
+                    first_name={client.first_name}
+                    last_name={client.last_name}
+                    email={client.email}
+                    phone={client.phone}
+                    count={index + 1}
+                  />
+                ))}
+              </Item.Group>
+            </div>
+          </div>
+        ) : null}
+        {this.state.addFellowActive ? <AddFellow /> : null}
       </div>
     );
   }
