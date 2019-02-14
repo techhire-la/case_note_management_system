@@ -109,7 +109,7 @@ class Dashboard extends Component {
 
   sort = (field, direction) => {
       this.setState({
-        clients: this.state.clients.sort(function(a, b) {
+        results: this.state.results.sort(function(a, b) {
           if (a[field] > b[field]) {
               return direction == 'DESC' ? 1 : -1;
           } else if (a[field] < b[field]) {
@@ -124,6 +124,7 @@ class Dashboard extends Component {
   render() {
     var clients = this.state.results;
     var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
+    
 
     return (
       <div>
@@ -152,9 +153,10 @@ class Dashboard extends Component {
         </div>
         <h1>Client List</h1>
 
-        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
-
-        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>{sortText}</button>
+        <div className="same-row">
+          <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
+          <Button type="button" color="green" onClick={(e) => this.sort('last_name', this.state.sortDirection)}>{sortText}</Button>
+        </div>​
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
