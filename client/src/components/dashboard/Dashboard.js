@@ -172,10 +172,7 @@ handleSearchChange = (e, { value }) => {
         </div>
         <h1>Client List</h1>
 
-        <Input placeholder='Search...'  
-                onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
-
-            />
+        <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
 
         <div />
         <div className="ui filterContainer catalogue_items">
@@ -212,3 +209,8 @@ export default connect(
 
 // {/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}
 {/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}
+
+{/* <Input placeholder='Search...'  
+onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
+
+/> */}

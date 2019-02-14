@@ -4,37 +4,14 @@ import _ from 'lodash';
 import Client from "./Client";
 import { Search, Grid, Header, Segment, Button, Input, Item } from 'semantic-ui-react'
 
-// class SearchClients extends Component {
 
-//         state = {
-//             clients: []
-//         };
+class SearchClients extends Component {
 
-
-//         handleClick = e => {
-//             e.preventDefault();
-//             console.log("hello");
-//         };
-
-
-
-
-//     render() {
-//         // var clients = this.state.clients;
-
-//         return (
-//             <div>
-//                 <Button onClick={this.handleClick}> Hello </Button>
-//             </div>
-//         );
-//     }
-// }
-
-
-// export default SearchClients
-
-
-export default class SearchClients extends Component {
+    constructor(props) {
+        super(props);
+        this.resetComponent = this.resetComponent(this);
+        this.handleSearchChange = this.handleSearchChange(this);
+    }
     
         // componentWillMount() {
         //   this.resetComponent()
@@ -91,6 +68,8 @@ export default class SearchClients extends Component {
       )
     }
   }
+
+export default SearchClients
 
 //   <Search
               
