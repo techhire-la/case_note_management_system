@@ -25,6 +25,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       clients: [],
+      sortDirection: 'DESC',
       loading: false,
       errors: {},
       homeActive: true,
@@ -32,13 +33,6 @@ class Dashboard extends Component {
       results: [],
       searchValue: ''
     };
-
-    // this.onChange = this.onChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleSearchReset = this.handleSearchReset(this);
-    // this.handleClientSearch = this.handleClientSearch(this);
-    // this.handleSearchValue = this.handleSearchValue(this);
 
   }
 
@@ -86,7 +80,7 @@ class Dashboard extends Component {
   }
 
   handleSearchValue = value => {
-    this.setState({ value })
+    this.setState({ searchValue: value })
   }
 
   handleClientSearch = value => {
@@ -103,44 +97,23 @@ class Dashboard extends Component {
   }
 
   handleSearchReset = () => {
-    debugger
-    // const clients = this.state.clients
-    // console.log(this.clients)
     this.setState({ results: this.state.clients, value: ''})
   }
 
-  ///////////////////////////////
 
-
-  resetComponent = () => {
-
-    this.handleSearchReset()
-}
-    
-// handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
-
-handleSearchChange = (e, { value }) => {
-
-    this.handleSearchValue(value)
-//   this.setState({ value })
-//   const res = this.state.results
-
-  setTimeout(() => {
-    if (this.state.value.length < 1) return this.resetComponent()
-
-
-    const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-    const isMatch = result => (re.test(result.first_name) || re.test(result.last_name))
-    const client_list = _.filter(this.state.results, isMatch)
-    this.handleClientSearch(client_list)
-//     this.setState({
-      
-//       results: _.filter(this.props.clients, isMatch),
-//     })
-  }, 300)
-
-  
-}
+  sort = (field, direction) => {
+      this.setState({
+        clients: this.state.clients.sort(function(a, b) {
+          if (a[field] > b[field]) {
+              return direction == 'DESC' ? 1 : -1;
+          } else if (a[field] < b[field]) {
+              return direction == 'DESC' ? -1 : 1;
+          }
+          return 0;
+        }),
+        sortDirection: direction == 'DESC' ? 'ASC' : 'DESC'
+      })
+  }
 
   render() {
     var clients = this.state.results;
@@ -174,6 +147,7 @@ handleSearchChange = (e, { value }) => {
 
         <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
 
+        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>Sort by Last Name</button>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
@@ -206,11 +180,3 @@ export default connect(
   { logoutUser }
 )(Dashboard);
 
-
-// {/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}
-{/* <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/> */}
-
-{/* <Input placeholder='Search...'  
-onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
-
-/> */}

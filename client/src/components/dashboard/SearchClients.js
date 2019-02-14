@@ -9,8 +9,8 @@ class SearchClients extends Component {
 
     constructor(props) {
         super(props);
-        this.resetComponent = this.resetComponent(this);
-        this.handleSearchChange = this.handleSearchChange(this);
+        // this.resetComponent = this.resetComponent(this);
+        // this.handleSearchChange = this.handleSearchChange(this);
     }
     
         // componentWillMount() {
@@ -19,37 +19,29 @@ class SearchClients extends Component {
       
         // resetComponent = () => this.setState({ results: this.props.clients , value: ''})
         resetComponent = () => {
-
             this.props.handleSearchReset()
         }
             
         // handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
       
         handleSearchChange = (e, { value }) => {
-
             this.props.handleSearchValue(value)
-        //   this.setState({ value })
-        //   const res = this.state.results
+
       
           setTimeout(() => {
             if (this.props.value.length < 1) return this.resetComponent()
 
       
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
+            const re = new RegExp(_.escapeRegExp(this.props.value), 'i')
             const isMatch = result => (re.test(result.first_name) || re.test(result.last_name))
             const client_list = _.filter(this.props.results, isMatch)
             this.props.handleClientSearch(client_list)
-        //     this.setState({
-              
-        //       results: _.filter(this.props.clients, isMatch),
-        //     })
           }, 300)
 
           
         }
   
     render() {
-    //   const clients = this.props.results
       const { value, results, clients} = this.props
       
   
