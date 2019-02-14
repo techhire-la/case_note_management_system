@@ -42,17 +42,14 @@ class SearchClients extends Component {
       
   
       return (
-        <Grid>
-          <Grid.Column width={12}>
-
+        <div className="search-bar">
             <Input placeholder='Search...'  
                 onChange={_.debounce(this.handleSearchChange, 100, { leading: true })}
                 results={results}
                 value={value}
             />
-          </Grid.Column>
+        </div>
 
-        </Grid>
       )
     }
   }

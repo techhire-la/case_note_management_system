@@ -123,6 +123,7 @@ class Dashboard extends Component {
 
   render() {
     var clients = this.state.results;
+    var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
 
     return (
       <div>
@@ -153,7 +154,7 @@ class Dashboard extends Component {
 
         <SearchClients clients={this.state.clients} value={this.state.searchValue} results={this.state.results} handleClientSearch={this.handleClientSearch} handleSearchReset={this.handleSearchReset} handleSearchValue={this.handleSearchValue}/>
 
-        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>Sort by Last Name</button>
+        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>{sortText}</button>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
