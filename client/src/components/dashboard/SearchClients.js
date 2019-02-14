@@ -9,20 +9,16 @@ class SearchClients extends Component {
 
     constructor(props) {
         super(props);
-        // this.resetComponent = this.resetComponent(this);
-        // this.handleSearchChange = this.handleSearchChange(this);
     }
-    
+
         // componentWillMount() {
         //   this.resetComponent()
         // }
       
-        // resetComponent = () => this.setState({ results: this.props.clients , value: ''})
         resetComponent = () => {
             this.props.handleSearchReset()
         }
             
-        // handleResultSelect = (e, { result }) => this.setState({ value: (result.first_name || result.last_name), full_val: result })
       
         handleSearchChange = (e, { value }) => {
             this.props.handleSearchValue(value)
@@ -62,30 +58,3 @@ class SearchClients extends Component {
   }
 
 export default SearchClients
-
-//   <Search
-              
-//   onResultSelect={this.handleResultSelect}
-
-// />
-
-{/* <Grid.Column width={10}>
-<Segment>
-  <Header>State</Header>
-  <pre style={{ overflowX: 'auto' }}>{JSON.stringify(this.state, null, 2)}</pre>
-  <Item.Group>
-    {clients.map((client, index) => (
-    <Client
-        key={index}
-        first_name={client.first_name}
-        last_name={client.last_name}
-        email={client.email}
-        phone={client.phone}
-        count={index + 1}
-    />
-    ))}
-</Item.Group>
-</Segment>
-</Grid.Column> */}
-
-// {...this.props}  
