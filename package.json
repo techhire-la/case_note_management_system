@@ -6,8 +6,8 @@
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "nodemon server.js",
-    "server": "DEBUG=* nodemon server.js",
-    "client": "DEBUG=* npm start --prefix client",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Brad Traversy",
