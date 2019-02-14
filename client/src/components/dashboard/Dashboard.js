@@ -5,15 +5,15 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
-import { getDashboard } from "../../actions/dashboardActions";
-import Spinner from "../common/Spinner";
+// import { getDashboard } from "../../actions/dashboardActions";
+// import Spinner from "../common/Spinner";
 import {
-  Image,
-  Item,
-  Responsive,
-  Segment,
-  Form,
-  Button
+  // Image,
+  Item
+  // Responsive,
+  // Segment,
+  // Form,
+  // Button
 } from "semantic-ui-react";
 import Client from "./Client";
 
@@ -39,6 +39,7 @@ class Dashboard extends Component {
     axios
       .get("api/clients/all")
       .then(res => {
+        debugger;
         console.log(res.data);
 
         this.setState({ clients: res.data });
