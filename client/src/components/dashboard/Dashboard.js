@@ -17,6 +17,8 @@ import {
 } from "semantic-ui-react";
 import Client from "./Client";
 
+import ClientPagination from "../common/Pagination";
+
 class Dashboard extends Component {
   constructor(props) {
     super();
@@ -25,7 +27,11 @@ class Dashboard extends Component {
       loading: false,
       errors: {},
       homeActive: true,
-      addFellowActive: false
+      addFellowActive: false,
+
+      // ----------------------------------------------------------
+      currentPage: 1, //
+      pageSize: 10
     };
 
     // this.onChange = this.onChange.bind(this);
@@ -77,8 +83,12 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
+  handlePageChange() {
+    console.log("handle page change");
+  }
+
   render() {
-    var clients = this.state.clients;
+    const { clients, currentPage, pageSize } = this.state;
 
     return (
       <div>
@@ -121,6 +131,13 @@ class Dashboard extends Component {
             ))}
           </Item.Group>
         </div>
+
+        <ClientPagination
+          itemsCount={clients.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }
