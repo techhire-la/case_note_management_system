@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
-import { getDashboard } from "../../actions/dashboardActions";
+import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
 import {
   Image,
@@ -22,7 +22,7 @@ class Dashboard extends Component {
     super();
     this.state = {
       clients: [],
-      sortDirection: 'DESC',
+      sortDirection: "DESC",
       loading: false,
       errors: {},
       homeActive: true,
@@ -35,16 +35,13 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log("component did mount");
-
-    axios
-      .get("api/clients/all")
-      .then(res => {
-        console.log(res.data);
-
-        this.setState({ clients: res.data });
-      })
-      .catch(e => console.log(e));
+    if (this.props.clients.length === 0) {
+      // if the page is refreshed
+      this.props.getClients(); // call axios from redux -> update props
+    }
+    this.setState({
+      clients: this.props.clients
+    });
 
     // this.props.getDashboard();
     // axios
@@ -63,6 +60,15 @@ class Dashboard extends Component {
     // })
   }
 
+  componentWillReceiveProps(nextProps){
+    // updated props if page is refreshed
+    if(this.props !== nextProps){
+      this.setState({
+        clients: nextProps.clients
+      });
+    }
+  }
+
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -78,18 +84,18 @@ class Dashboard extends Component {
   }
 
   sort = (field, direction) => {
-      this.setState({
-        clients: this.state.clients.sort(function(a, b) {
-          if (a[field] > b[field]) {
-              return direction == 'DESC' ? 1 : -1;
-          } else if (a[field] < b[field]) {
-              return direction == 'DESC' ? -1 : 1;
-          }
-          return 0;
-        }),
-        sortDirection: direction == 'DESC' ? 'ASC' : 'DESC'
-      })
-  }
+    this.setState({
+      clients: this.state.clients.sort(function(a, b) {
+        if (a[field] > b[field]) {
+          return direction == "DESC" ? 1 : -1;
+        } else if (a[field] < b[field]) {
+          return direction == "DESC" ? -1 : 1;
+        }
+        return 0;
+      }),
+      sortDirection: direction == "DESC" ? "ASC" : "DESC"
+    });
+  };
 
   render() {
     var clients = this.state.clients;
@@ -120,7 +126,9 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <button onClick={(e) => this.sort('last_name', this.state.sortDirection)}>Sort by Last Name</button>
+        <button onClick={e => this.sort("last_name", this.state.sortDirection)}>
+          Sort by Last Name
+        </button>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
@@ -142,13 +150,15 @@ class Dashboard extends Component {
 }
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getClients: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
+  clients: state.dashboard.allClients
 });
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, getClients }
 )(Dashboard);

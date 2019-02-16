@@ -223,7 +223,7 @@ class Questionnaire extends Component {
       <Container text className="questionnaire-style">
         <p>
           {" "}
-          YPI Employee? Login <a href="/login">here</a>
+          YPI Employee? Login <a onClick={() => this.props.history.push('/login')} style={{cursor: 'pointer'}}>here</a>
         </p>
         <Form>
           <Header as="h1">Questionnaire</Header>
