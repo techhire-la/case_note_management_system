@@ -126,9 +126,7 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <button onClick={e => this.sort("last_name", this.state.sortDirection)}>
-          Sort by Last Name
-        </button>
+        <Button icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} onClick={e => this.sort("last_name", this.state.sortDirection)} content='Sort by Last Name'/>
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
