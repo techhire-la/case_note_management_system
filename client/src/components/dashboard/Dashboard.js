@@ -125,7 +125,7 @@ class Dashboard extends Component {
         searchValue: value,
         searchResults: searchResults
       })
-    }, 300)
+    }, 100)
   }
 
   render() {
@@ -157,7 +157,7 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <Button 
+        <Button
           icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} 
           onClick={e => this.sort("last_name", this.state.sortDirection)} 
           content='Sort by Last Name'
