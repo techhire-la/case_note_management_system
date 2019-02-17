@@ -7,14 +7,7 @@ import { logoutUser } from "../../actions/authActions";
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
-import {
-  Image,
-  Item,
-  Responsive,
-  Segment,
-  Form,
-  Button
-} from "semantic-ui-react";
+import { Image, Item, Responsive, Segment, Form, Button, Grid, Search, Header } from "semantic-ui-react";
 import Client from "./Client";
 
 class Dashboard extends Component {
@@ -40,7 +33,8 @@ class Dashboard extends Component {
       this.props.getClients(); // call axios from redux -> update props
     }
     this.setState({
-      clients: this.props.clients
+      clients: this.props.clients,
+      isLoading: false, results: [], value: '' // reset search component
     });
 
     // this.props.getDashboard();
@@ -97,6 +91,40 @@ class Dashboard extends Component {
     });
   };
 
+  resetSearchComponent = () => this.setState({ searchIsLoading: false, searchResults: [], searchValue: '' })
+
+  handleResultSelect = (e, { result }) => {
+    console.log('search bar selected item:', result)
+  }
+
+  // handles filtering of clients
+  handleSearchChange = (e, { value }) => {
+    value = value.toLowerCase()
+    this.setState({ searchIsLoading: true, searchValue: value })
+    let searchResults = this.state.clients.filter(client => {
+      if(client.first_name.toLowerCase().includes(value) || client.last_name.toLowerCase().includes(value)){
+        return client
+      }
+    }).map(person => {
+      return {
+        title: `${person.first_name} ${person.last_name}`, 
+        description: '1234', 
+        image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png', 
+        key: person.id
+      }
+    })
+    setTimeout(() => {
+      if(this.state.searchValue.length < 1){
+        return this.resetSearchComponent()
+      }
+      this.setState({ 
+        searchIsLoading: false,
+        searchValue: value,
+        searchResults: searchResults
+      })
+    }, 300)
+  }
+
   render() {
     var clients = this.state.clients;
 
@@ -126,7 +154,19 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <Button icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} onClick={e => this.sort("last_name", this.state.sortDirection)} content='Sort by Last Name'/>
+        <Button 
+          icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} 
+          onClick={e => this.sort("last_name", this.state.sortDirection)} 
+          content='Sort by Last Name'
+        />
+        <Search
+          loading={this.state.searchIsLoading}
+          onResultSelect={this.handleResultSelect}
+          onSearchChange={this.handleSearchChange}
+          results={this.state.searchResults}
+          value={this.state.searchValue}
+          {...this.props}
+        />
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
