@@ -7,7 +7,7 @@ import { logoutUser } from "../../actions/authActions";
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
-import { Image, Item, Responsive, Segment, Form, Button, Grid, Search, Header } from "semantic-ui-react";
+import { Image, Item, Responsive, Segment, Form, Button, Search } from "semantic-ui-react";
 import Client from "./Client";
 
 class Dashboard extends Component {
@@ -93,11 +93,12 @@ class Dashboard extends Component {
 
   resetSearchComponent = () => this.setState({ searchIsLoading: false, searchResults: [], searchValue: '' })
 
-  handleResultSelect = (e, { result }) => {
+  handleSearchResultSelect = (e, { result }) => {
     console.log('search bar selected item:', result)
+    this.resetSearchComponent()
   }
 
-  // handles filtering of clients
+  // handles filtering of clients for the search bar
   handleSearchChange = (e, { value }) => {
     value = value.toLowerCase()
     this.setState({ searchIsLoading: true, searchValue: value })
@@ -107,12 +108,14 @@ class Dashboard extends Component {
       }
     }).map(person => {
       return {
-        title: `${person.first_name} ${person.last_name}`, 
-        description: '1234', 
-        image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png', 
-        key: person.id
+        ...person,
+        title: `${person.first_name} ${person.last_name}`,
+        description: `hi my name is ${person.first_name}`,
+        // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
+        key: person._id,
       }
     })
+
     setTimeout(() => {
       if(this.state.searchValue.length < 1){
         return this.resetSearchComponent()
@@ -161,11 +164,10 @@ class Dashboard extends Component {
         />
         <Search
           loading={this.state.searchIsLoading}
-          onResultSelect={this.handleResultSelect}
+          onResultSelect={this.handleSearchResultSelect}
           onSearchChange={this.handleSearchChange}
           results={this.state.searchResults}
           value={this.state.searchValue}
-          {...this.props}
         />
         <div />
         <div className="ui filterContainer catalogue_items">
