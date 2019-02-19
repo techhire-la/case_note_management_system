@@ -8,17 +8,17 @@ const ClientPagination = props => {
 
   return (
     <div>
-      {console.log(currentPage)}
+      {/* {console.log(currentPage)} */}
       <Pagination
-        // activePage={currentPage}
-        defaultActivePage={currentPage} //current page
+        activePage={currentPage}
+        // onPageChange={e => onPageChange(e.target)}
+        // defaultActivePage={currentPage} //current page
         firstItem={null} //firstPage
         lastItem={null} //lastPage
         pointing // undelinepage
         secondary // arrow style
         totalPages={totalPages} //totalPages
-        // onPageChange={onPageChange}
-        onClick={onPageChange}
+        onClick={e => onPageChange(e)}
       />
     </div>
   );
