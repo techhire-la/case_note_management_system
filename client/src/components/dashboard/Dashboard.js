@@ -34,6 +34,8 @@ class Dashboard extends Component {
       pageSize: 10
     };
 
+    this.handlePageChange = this.handlePageChange.bind(this);
+
     // this.onChange = this.onChange.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,7 +47,6 @@ class Dashboard extends Component {
     axios
       .get("api/clients/all")
       .then(res => {
-        debugger;
         console.log(res.data);
 
         this.setState({ clients: res.data });
@@ -83,12 +84,26 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
-  handlePageChange() {
+  handlePageChange(page) {
     console.log("handle page change");
+    // console.log(this.state.currentPage);
+    console.log(page);
+    this.setState({ currentPage: page });
   }
 
   render() {
     const { clients, currentPage, pageSize } = this.state;
+
+    let client = clients.map((client, index) => (
+      <Client
+        key={index}
+        first_name={client.first_name}
+        last_name={client.last_name}
+        email={client.email}
+        phone={client.phone}
+        count={index + 1}
+      />
+    ));
 
     return (
       <div>
@@ -118,26 +133,14 @@ class Dashboard extends Component {
         <h1>Client List</h1>
         <div />
         <div className="ui filterContainer catalogue_items">
-          <Item.Group>
-            {clients.map((client, index) => (
-              <Client
-                key={index}
-                first_name={client.first_name}
-                last_name={client.last_name}
-                email={client.email}
-                phone={client.phone}
-                count={index + 1}
-              />
-            ))}
-          </Item.Group>
+          <ClientPagination
+            itemsCount={clients.length}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
+          />
+          <Item.Group>{client}</Item.Group>
         </div>
-
-        <ClientPagination
-          itemsCount={clients.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={this.handlePageChange}
-        />
       </div>
     );
   }
