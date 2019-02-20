@@ -2,7 +2,7 @@ import React from "react";
 import { Pagination } from "semantic-ui-react";
 
 const ClientPagination = props => {
-  const { currentPage, itemsCount, pageSize, onPageChange } = props;
+  const { activePage, itemsCount, pageSize, onPageChange } = props;
   const totalPages = Math.ceil(itemsCount / pageSize);
   if (totalPages === 1) return null;
 
@@ -10,15 +10,15 @@ const ClientPagination = props => {
     <div>
       {/* {console.log(currentPage)} */}
       <Pagination
-        activePage={currentPage}
+        activePage={activePage}
         // onPageChange={e => onPageChange(e.target)}
         // defaultActivePage={currentPage} //current page
-        firstItem={null} //firstPage
-        lastItem={null} //lastPage
-        pointing // undelinepage
-        secondary // arrow style
+        // firstItem={null} //firstPage
+        // lastItem={null} //lastPage
+        // pointing // undelinepage
+        // secondary // arrow style
         totalPages={totalPages} //totalPages
-        onClick={e => onPageChange(e)}
+        onPageChange={onPageChange}
       />
     </div>
   );

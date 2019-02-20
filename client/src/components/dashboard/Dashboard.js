@@ -30,7 +30,7 @@ class Dashboard extends Component {
       addFellowActive: false,
 
       // ----------------------------------------------------------
-      currentPage: 1, //
+      activePage: 1, //
       pageSize: 10
     };
 
@@ -84,16 +84,11 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
-  // handlePageChange(page) {
-  //   console.log("handle page change");
-  //   // console.log(this.state.currentPage);
-  //   console.log(page);
-  //   this.setState({ currentPage: page });
-  // }
+  handlePageChange(e, { activePage }) {
+    this.setState({ activePage: activePage });
+    console.log(activePage);
+  }
 
-  handlePageChange = e => {
-    console.log(typeof e.target.text, "sadfasdf");
-  };
   render() {
     const { clients, currentPage, pageSize } = this.state;
 
