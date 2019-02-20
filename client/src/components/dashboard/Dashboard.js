@@ -85,12 +85,12 @@ class Dashboard extends Component {
   }
 
   handlePageChange(e, { activePage }) {
-    this.setState({ activePage: activePage });
+    this.setState({ activePage });
     console.log(activePage);
   }
 
   render() {
-    const { clients, currentPage, pageSize } = this.state;
+    const { clients, activePage, pageSize } = this.state;
 
     let client = clients.map((client, index) => (
       <Client
@@ -132,12 +132,13 @@ class Dashboard extends Component {
         <div />
         <div className="ui filterContainer catalogue_items">
           <ClientPagination
+            activePage={activePage}
             itemsCount={clients.length}
+            clients={client}
             pageSize={pageSize}
-            currentPage={currentPage}
             onPageChange={this.handlePageChange}
           />
-          <Item.Group>{client}</Item.Group>
+          {/* <Item.Group>{client}</Item.Group> */}
         </div>
       </div>
     );
