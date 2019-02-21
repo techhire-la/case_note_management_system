@@ -153,12 +153,13 @@ class Dashboard extends Component {
         searchIsLoading: false,
         searchValue: value,
         searchResults: searchResults
-      }, 100)
-    })
+      })
+    }, 100)
   }
 
   render() {
-    var clients = this.state.results;
+    var clients = this.state.clients;
+    // var clients = this.state.results;
     // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
     
 
