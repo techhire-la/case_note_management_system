@@ -3,12 +3,14 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import SearchClients from "./SearchClients";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
 import { Image, Item, Responsive, Segment, Form, Button, Search } from "semantic-ui-react";
 import Client from "./Client";
+import _ from 'lodash';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -19,12 +21,11 @@ class Dashboard extends Component {
       loading: false,
       errors: {},
       homeActive: true,
-      addFellowActive: false
+      addFellowActive: false,
+      results: [],
+      searchValue: ''
     };
 
-    // this.onChange = this.onChange.bind(this);
-    // this.onSubmit = this.onSubmit.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +69,8 @@ class Dashboard extends Component {
     this.props.logoutUser();
   };
 
+  ////////////// ADD FELLOW ////////////////////////////////
+
   homeFunc() {
     this.setState({ homeActive: true, addFellowActive: false });
   }
@@ -76,6 +79,32 @@ class Dashboard extends Component {
     this.setState({ homeActive: false, addFellowActive: true });
     this.props.history.push("/addfellow");
   }
+
+
+  ///// HANDLE SEARCH ////////////////////////////
+
+  handleSearchValue = value => {
+    this.setState({ searchValue: value })
+  }
+
+  handleClientSearch = value => {
+
+    if (value.length < 1) {
+      this.setState({
+        results: this.state.results,
+      })
+    }else{
+      this.setState({
+        results: value,
+      })
+    }
+  }
+
+  handleSearchReset = () => {
+    this.setState({ results: this.state.clients, value: ''})
+  }
+  ////////////////////////////////////////////////
+
 
   sort = (field, direction) => {
     this.setState({
@@ -124,12 +153,14 @@ class Dashboard extends Component {
         searchIsLoading: false,
         searchValue: value,
         searchResults: searchResults
-      })
-    }, 100)
+      }, 100)
+    })
   }
 
   render() {
-    var clients = this.state.clients;
+    var clients = this.state.results;
+    // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
+    
 
     return (
       <div>
@@ -202,3 +233,4 @@ export default connect(
   mapStateToProps,
   { logoutUser, getClients }
 )(Dashboard);
+
