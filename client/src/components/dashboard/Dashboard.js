@@ -18,6 +18,7 @@ import {
 import Client from "./Client";
 
 import ClientPagination from "../common/Pagination";
+import paginate from "../../utils/paginate";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -30,8 +31,8 @@ class Dashboard extends Component {
       addFellowActive: false,
 
       // ----------------------------------------------------------
-      activePage: 1, //
-      pageSize: 10
+      activePage: 1,
+      pageSize: 5
     };
 
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -103,6 +104,8 @@ class Dashboard extends Component {
       />
     ));
 
+    let clientList = paginate(client, activePage, pageSize);
+
     return (
       <div>
         <div className="ui inverted segment">
@@ -138,7 +141,7 @@ class Dashboard extends Component {
             pageSize={pageSize}
             onPageChange={this.handlePageChange}
           />
-          {/* <Item.Group>{client}</Item.Group> */}
+          <Item.Group>{clientList}</Item.Group>
         </div>
       </div>
     );

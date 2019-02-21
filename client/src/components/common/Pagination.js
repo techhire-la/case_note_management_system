@@ -6,13 +6,6 @@ const ClientPagination = props => {
   const totalPages = Math.ceil(itemsCount / pageSize);
   if (totalPages === 1) return null;
 
-  let begin = (activePage - 1) * pageSize;
-  let end = begin + pageSize;
-
-  console.log(begin, end);
-
-  let pageList = clients.slice(begin, end);
-  console.log(pageList);
   return (
     <div>
       <Pagination
@@ -20,7 +13,6 @@ const ClientPagination = props => {
         totalPages={totalPages}
         onPageChange={onPageChange}
       />
-      {pageList}
     </div>
   );
 };
