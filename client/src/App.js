@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import AddFellow from "./components/dashboard/AddFellow";
-import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  withRouter,
+  Switch,
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -62,6 +67,6 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
 
 // <Questionnaire />
