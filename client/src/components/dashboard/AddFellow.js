@@ -6,6 +6,7 @@ import {
   NotificationManager,
   NotificationContainer
 } from "react-notifications";
+import { withRouter } from "react-router-dom";
 
 class AddFellow extends React.Component {
   state = {
@@ -33,10 +34,10 @@ class AddFellow extends React.Component {
   };
 
   redirect = () => {
-    // setTimeout(function() {
-    // this.props.history.push("/dashboard");
-    this.context.history.push("/dashboard");
-    // }, 2000);
+    setTimeout(function() {
+      // this.props.history.push("/dashboard");
+      this.props.history.push("/dashboard");
+    }, 2000);
   };
 
   handleAddFellow = () => {
@@ -123,4 +124,4 @@ class AddFellow extends React.Component {
   }
 }
 
-export default AddFellow;
+export default withRouter(AddFellow);
