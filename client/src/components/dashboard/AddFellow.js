@@ -36,7 +36,7 @@ class AddFellow extends React.Component {
   redirect = () => {
     // setTimeout(function() {
     // this.props.history.push("/dashboard");
-    this.props.history.push("/dashboard");
+    this.props.homeFunc();
     // }, 2000);
   };
 

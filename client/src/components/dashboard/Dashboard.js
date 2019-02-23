@@ -126,7 +126,9 @@ class Dashboard extends Component {
             </div>
           </div>
         ) : null}
-        {this.state.addFellowActive ? <AddFellow /> : null}
+        {this.state.addFellowActive ? (
+          <AddFellow homeFunc={this.homeFunc} />
+        ) : null}
       </div>
     );
   }
