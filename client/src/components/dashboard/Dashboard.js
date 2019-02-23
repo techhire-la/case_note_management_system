@@ -143,6 +143,7 @@ class Dashboard extends Component {
         {this.state.addFellowActive ? (
           <AddFellow redirectToHome={this.redirectToHome.bind(this)} />
         ) : null}
+        <NotificationContainer />
       </div>
     );
   }
