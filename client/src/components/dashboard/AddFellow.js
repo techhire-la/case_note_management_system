@@ -34,10 +34,10 @@ class AddFellow extends React.Component {
   };
 
   redirect = () => {
-    // setTimeout(function() {
-    // this.props.history.push("/dashboard");
-    this.props.homeFunc();
-    // }, 2000);
+    setTimeout(function() {
+      this.props.history.push("/dashboard");
+      this.props.homeFunc();
+    }, 2000);
   };
 
   handleAddFellow = () => {
@@ -54,8 +54,7 @@ class AddFellow extends React.Component {
       .then(result => {
         console.log("success");
         this.notificationSuccess();
-        // this.redirect();
-        this.props.homeFunc();
+        this.redirect();
       })
       .catch(err => {
         console.log("error");
