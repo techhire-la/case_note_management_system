@@ -22,7 +22,6 @@ class AddFellow extends React.Component {
       "You have successfully added a fellow to the system.",
       "Success"
     );
-    // this.props.history.push("/dashboard");
   };
 
   notificationError = () => {
@@ -31,13 +30,6 @@ class AddFellow extends React.Component {
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  redirect = () => {
-    setTimeout(function() {
-      this.props.homeFunc();
-      this.props.history.push("/dashboard");
-    }, 2000);
   };
 
   handleAddFellow = () => {
@@ -52,13 +44,9 @@ class AddFellow extends React.Component {
         address
       })
       .then(result => {
-        console.log("success");
-        // this.notificationSuccess();
-        // this.redirect();
         this.props.redirectToHome();
       })
       .catch(err => {
-        console.log("error");
         this.notificationError();
         console.error(err);
       });
