@@ -86,7 +86,7 @@ class Dashboard extends Component {
           <div className="ui inverted secondary pointing menu">
             <a
               className={this.state.homeActive ? "item active" : "item"}
-              onClick={this.homeFunc.bind(this)}
+              onClick={() => this.homeFunc()}
             >
               Home
             </a>
@@ -127,7 +127,7 @@ class Dashboard extends Component {
           </div>
         ) : null}
         {this.state.addFellowActive ? (
-          <AddFellow homeFunc={this.homeFunc} />
+          <AddFellow homeFunc={this.homeFunc.bind(this)} />
         ) : null}
       </div>
     );
