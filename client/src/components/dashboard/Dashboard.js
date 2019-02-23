@@ -141,7 +141,7 @@ class Dashboard extends Component {
           </div>
         ) : null}
         {this.state.addFellowActive ? (
-          <AddFellow homeFunc={this.redirectToHome.bind(this)} />
+          <AddFellow redirectToHome={this.redirectToHome.bind(this)} />
         ) : null}
       </div>
     );

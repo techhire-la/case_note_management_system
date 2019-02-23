@@ -53,8 +53,10 @@ class AddFellow extends React.Component {
       })
       .then(result => {
         console.log("success");
-        this.notificationSuccess();
-        this.redirect();
+        // this.notificationSuccess();
+        // this.redirect();
+        debugger;
+        this.props.redirectToHome();
       })
       .catch(err => {
         console.log("error");
