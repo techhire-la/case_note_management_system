@@ -86,7 +86,7 @@ class Dashboard extends Component {
           <div className="ui inverted secondary pointing menu">
             <a
               className={this.state.homeActive ? "item active" : "item"}
-              onClick={() => this.homeFunc()}
+              onClick={this.homeFunc.bind(this)}
             >
               Home
             </a>
