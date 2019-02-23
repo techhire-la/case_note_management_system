@@ -3,6 +3,11 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import "react-notifications/lib/notifications.css";
+import {
+  NotificationManager,
+  NotificationContainer
+} from "react-notifications";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard } from "../../actions/dashboardActions";
@@ -72,6 +77,15 @@ class Dashboard extends Component {
     this.setState({ homeActive: true, addFellowActive: false });
   }
 
+  redirectToHome() {
+    this.setState({ homeActive: true, addFellowActive: false });
+    this.props.history.push("/dashboard");
+    NotificationManager.success(
+      "You have successfully added a fellow to the system.",
+      "Success"
+    );
+  }
+
   addFellow() {
     this.setState({ homeActive: false, addFellowActive: true });
     this.props.history.push("/addfellow");
@@ -127,7 +141,7 @@ class Dashboard extends Component {
           </div>
         ) : null}
         {this.state.addFellowActive ? (
-          <AddFellow homeFunc={this.homeFunc.bind(this)} />
+          <AddFellow homeFunc={this.redirectToHome.bind(this)} />
         ) : null}
       </div>
     );
