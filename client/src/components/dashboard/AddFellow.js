@@ -26,7 +26,7 @@ class AddFellow extends React.Component {
   };
 
   notificationError = () => {
-    NotificationManager.error("There was an error. Please try again.", "Error");
+    NotificationManager.error("Email is already in our system.", "Error");
   };
 
   handleChange = e => {
