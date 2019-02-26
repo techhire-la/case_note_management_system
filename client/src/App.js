@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/dashboard/Dashboard";
-import AddFellow from "./components/dashboard/AddFellow";
 import {
   withRouter,
   Switch,

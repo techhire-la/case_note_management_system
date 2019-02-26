@@ -54,6 +54,7 @@ class Dashboard extends Component {
     } else if (window.location.href == "http://localhost:3000/addfellow") {
       this.setState({ homeActive: false, addFellowActive: true });
     }
+
     // this.props.getDashboard();
     // axios
     //     .get('/api/users/register', userData)
@@ -69,6 +70,23 @@ class Dashboard extends Component {
     //     .get('/api/dashboard/all')
     //     .then(response => {this.setState({clients: response.data})
     // })
+  }
+
+  componentDidUpdate() {
+    console.log("component did update");
+    console.log("href===", window.location.href);
+    if (window.location.href == "http://localhost:3000/dashboard") {
+      axios
+        .get("api/clients/all")
+        .then(res => {
+          console.log(res.data);
+
+          this.setState({ clients: res.data });
+        })
+        .catch(e => console.log(e));
+    } else if (window.location.href == "http://localhost:3000/addfellow") {
+      this.setState({ homeActive: false, addFellowActive: true });
+    }
   }
 
   onLogoutClick = e => {
