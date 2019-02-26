@@ -41,16 +41,19 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log("component did mount");
+    console.log("href===", window.location.href);
+    if (window.location.href == "http://localhost:3000/dashboard") {
+      axios
+        .get("api/clients/all")
+        .then(res => {
+          console.log(res.data);
 
-    axios
-      .get("api/clients/all")
-      .then(res => {
-        console.log(res.data);
-
-        this.setState({ clients: res.data });
-      })
-      .catch(e => console.log(e));
-
+          this.setState({ clients: res.data });
+        })
+        .catch(e => console.log(e));
+    } else if (window.location.href == "http://localhost:3000/addfellow") {
+      this.setState({ homeActive: false, addFellowActive: true });
+    }
     // this.props.getDashboard();
     // axios
     //     .get('/api/users/register', userData)
