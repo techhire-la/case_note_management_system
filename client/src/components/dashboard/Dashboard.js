@@ -18,12 +18,13 @@ class Dashboard extends Component {
     this.state = {
       clients: [],
       sortDirection: "DESC",
-      loading: false,
+      // loading: false,
       errors: {},
       homeActive: true,
       addFellowActive: false,
-      results: [],
-      searchValue: ''
+      searchResults: [],
+      searchLookupValue: '',
+      searchSelection: ''
     };
 
   }
@@ -35,7 +36,7 @@ class Dashboard extends Component {
     }
     this.setState({
       clients: this.props.clients,
-      isLoading: false, results: [], value: '' // reset search component
+      searchResults: [], searchLookupValue: '', searchSelection: '' // reset search component
     });
 
     // this.props.getDashboard();
@@ -83,26 +84,26 @@ class Dashboard extends Component {
 
   ///// HANDLE SEARCH ////////////////////////////
 
-  handleSearchValue = value => {
-    this.setState({ searchValue: value })
-  }
+  // handleSearchValue = value => {
+  //   this.setState({ searchValue: value })
+  // }
 
-  handleClientSearch = value => {
+  // handleClientSearch = value => {
 
-    if (value.length < 1) {
-      this.setState({
-        results: this.state.results,
-      })
-    }else{
-      this.setState({
-        results: value,
-      })
-    }
-  }
+  //   if (value.length < 1) {
+  //     this.setState({
+  //       results: this.state.results,
+  //     })
+  //   }else{
+  //     this.setState({
+  //       results: value,
+  //     })
+  //   }
+  // }
 
-  handleSearchReset = () => {
-    this.setState({ results: this.state.clients, value: ''})
-  }
+  // handleSearchReset = () => {
+  //   this.setState({ results: this.state.clients, value: ''})
+  // }
   ////////////////////////////////////////////////
 
 
@@ -120,41 +121,33 @@ class Dashboard extends Component {
     });
   };
 
-  resetSearchComponent = () => this.setState({ searchIsLoading: false, searchResults: [], searchValue: '' })
-
   handleSearchResultSelect = (e, { result }) => {
-    console.log('search bar selected item:', result)
-    this.resetSearchComponent()
+    console.log('you have selected:', result)
+    this.setState({
+      searchResults: [], // reset search 
+      searchLookupValue: '',
+      searchSelection: result // set selected item
+    })
   }
 
   // handles filtering of clients for the search bar
   handleSearchChange = (e, { value }) => {
-    value = value.toLowerCase()
-    this.setState({ searchIsLoading: true, searchValue: value })
-    let searchResults = this.state.clients.filter(client => {
-      if(client.first_name.toLowerCase().includes(value) || client.last_name.toLowerCase().includes(value)){
+    this.setState({
+      searchResults: this.state.clients.filter(client => {
+      if(client.first_name.toLowerCase().includes(value.toLowerCase()) || client.last_name.toLowerCase().includes(value.toLowerCase())){
         return client
       }
-    }).map(person => {
-      return {
-        ...person,
-        title: `${person.first_name} ${person.last_name}`,
-        description: `hi my name is ${person.first_name}`,
-        // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
-        key: person._id,
-      }
+      }).map(person => {
+          return {
+            ...person,
+            title: `${person.first_name} ${person.last_name}`,
+            description: `hi my name is ${person.first_name}`,
+            // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
+            key: person._id,
+          }
+        }),
+        searchLookupValue: value
     })
-
-    setTimeout(() => {
-      if(this.state.searchValue.length < 1){
-        return this.resetSearchComponent()
-      }
-      this.setState({ 
-        searchIsLoading: false,
-        searchValue: value,
-        searchResults: searchResults
-      })
-    }, 100)
   }
 
   render() {
@@ -162,7 +155,6 @@ class Dashboard extends Component {
     // var clients = this.state.results;
     // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
     
-
     return (
       <div>
         <div className="ui inverted segment">
@@ -195,16 +187,16 @@ class Dashboard extends Component {
           content='Sort by Last Name'
         />
         <Search
-          loading={this.state.searchIsLoading}
+          // loading='false'
           onResultSelect={this.handleSearchResultSelect}
           onSearchChange={this.handleSearchChange}
           results={this.state.searchResults}
-          value={this.state.searchValue}
+          value={this.state.searchLookupValue}
         />
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
-            {clients.map((client, index) => (
+            {clients && clients.map((client, index) => (
               <Client
                 key={index}
                 first_name={client.first_name}
