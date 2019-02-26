@@ -75,6 +75,7 @@ class Dashboard extends Component {
 
   homeFunc() {
     this.setState({ homeActive: true, addFellowActive: false });
+    this.props.history.push("/dashboard");
   }
 
   redirectToHome() {
