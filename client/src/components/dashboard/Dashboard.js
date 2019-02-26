@@ -41,17 +41,9 @@ class Dashboard extends Component {
 
   componentDidMount() {
     console.log("component did mount");
-    console.log("href===", window.location.href);
-    if (window.location.href == "http://localhost:3000/dashboard") {
-      axios
-        .get("api/clients/all")
-        .then(res => {
-          console.log(res.data);
+    this.loadClients();
 
-          this.setState({ clients: res.data });
-        })
-        .catch(e => console.log(e));
-    } else if (window.location.href == "http://localhost:3000/addfellow") {
+    if (window.location.href == "http://localhost:3000/addfellow") {
       this.setState({ homeActive: false, addFellowActive: true });
     }
 
@@ -72,22 +64,16 @@ class Dashboard extends Component {
     // })
   }
 
-  componentDidUpdate() {
-    console.log("component did update");
-    console.log("href===", window.location.href);
-    if (window.location.href == "http://localhost:3000/dashboard") {
-      axios
-        .get("api/clients/all")
-        .then(res => {
-          console.log(res.data);
+  loadClients = () => {
+    axios
+      .get("api/clients/all")
+      .then(res => {
+        console.log(res.data);
 
-          this.setState({ clients: res.data });
-        })
-        .catch(e => console.log(e));
-    } else if (window.location.href == "http://localhost:3000/addfellow") {
-      this.setState({ homeActive: false, addFellowActive: true });
-    }
-  }
+        this.setState({ clients: res.data });
+      })
+      .catch(e => console.log(e));
+  };
 
   onLogoutClick = e => {
     e.preventDefault();
@@ -106,6 +92,7 @@ class Dashboard extends Component {
       "You have successfully added a fellow to the system.",
       "Success"
     );
+    this.loadClients();
   }
 
   addFellow() {
