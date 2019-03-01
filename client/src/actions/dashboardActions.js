@@ -39,7 +39,7 @@ export const getClients = () => dispatch => {
     })
     .catch(e =>
       dispatch({
-        type: GET_DASHBOARD,
+        type: GET_CLIENTS,
         payload: {}
       })
     );
