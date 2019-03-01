@@ -117,6 +117,7 @@ class Dashboard extends Component {
           }
           return 0;
         }),
+
         sortDirection: direction == 'DESC' ? 'ASC' : 'DESC'
       })
   }
