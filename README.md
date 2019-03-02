@@ -6,7 +6,7 @@
 - Run both on dev: `npm run dev`
 - There are 2 npm packages: one for client and one for the back end
     - To access and install the client's, please be sure to enter into the client folder (i.e. /case_note_management_system/client) and then run `npm install`
-    - To run server side installs, it's much simpler. In the main folder, just run `npm install`. No need to change directories
+    - To run server side installs, it's much simpler. In the main folder, just run `npm install`. No need to change directories.
 
 
 # YPI HTML and Express
