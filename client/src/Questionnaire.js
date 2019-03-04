@@ -12,6 +12,7 @@ import {
 
 import { connect } from "react-redux";
 import { getClients } from "./actions/dashboardActions";
+import Upload from "./components/upload/";
 
 class Questionnaire extends Component {
   constructor(props) {
@@ -63,6 +64,9 @@ class Questionnaire extends Component {
   componentDidMount() {
     this.props.getClients(); // populate store
   }
+  handleSubmit = () => {
+    this.refs.upload.onSubmit();
+  };
 
   moreJobInquiries() {
     if (this.state.foundJob === "no") {
@@ -131,18 +135,8 @@ class Questionnaire extends Component {
             />
           </Form.Field>
           <br />
-
-          <Form.Field>
-            <Header as="h4">Upload your resume</Header>
-          </Form.Field>
-          <Form.Field>
-            <Input
-              type="file"
-              id="resume"
-              name="resume"
-              onChange={this.handleResume}
-            />
-          </Form.Field>
+          <h3>Upload you resume ver 2</h3>
+          <Upload ref="upload" />
           <br />
 
           <Form.Field>
