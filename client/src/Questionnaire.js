@@ -20,7 +20,6 @@ class Questionnaire extends Component {
     this.state = {
       dateOfCompletion: undefined,
       email: undefined,
-      // client_name: undefined,
       clientID: undefined,
       foundJob: undefined,
       applyingToJobs: undefined,
