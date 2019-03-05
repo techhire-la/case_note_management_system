@@ -19,6 +19,8 @@ class Questionnaire extends Component {
     super(props);
     this.state = {
       dateOfCompletion: undefined,
+      email: undefined,
+      clientID: undefined,
       foundJob: undefined,
       applyingToJobs: undefined,
       jobsPerWeek: undefined,
@@ -37,6 +39,16 @@ class Questionnaire extends Component {
         meetWithRep: undefined
       });
     };
+
+    this.handleDropdown = (e, { value }) => {
+      debugger
+      var arr = value.split("_")
+      var id = arr[arr.length-1]
+
+      this.setState({
+        clientID: id
+      })
+    }
 
     this.handleApplyingToJobs = (e, { value }) =>
       this.setState({ applyingToJobs: value });
@@ -65,6 +77,7 @@ class Questionnaire extends Component {
     this.props.getClients(); // populate store
   }
   handleSubmit = () => {
+    // this.refs.
     this.refs.upload.onSubmit();
   };
 
@@ -207,6 +220,7 @@ class Questionnaire extends Component {
         return 0;
       })
       .map(client => {
+        // debugger
         return {
           text: `${client.first_name} ${client.last_name}`,
           value: `${client.first_name}_${client.last_name}_${client._id}`
@@ -233,6 +247,7 @@ class Questionnaire extends Component {
               search
               selection
               options={clientNameDropdown}
+              onChange={this.handleDropdown}
             />
           </Form.Field>
           <br />

@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+// manages uploads
 const multer = require("multer");
+// generates name of file
 const uuidv4 = require("uuid/v4");
 const path = require("path");
 
@@ -54,7 +56,7 @@ const storage = multer.diskStorage({
     // and add that to the new generated ID.
     // "userID7777_" - this is hard-coded version.
     // Later we can read a real "userId" from a component State or redux-store
-    cb(null, "userID7777_" + newFilename);
+    cb(null, "userID7777_" + uuidv4() + newFilename);
   }
 });
 // create the multer instance that will be used to upload/save the file
@@ -63,7 +65,9 @@ const upload = multer({ storage });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+console.log("before app post")
 app.post("/", upload.single("selectedFile"), (req, res) => {
+  // console.log("IM in upload post")
   /*
         We now have a new req.file object here. At this point the file has been saved
         and the req.file.filename value will be the name returned by the
