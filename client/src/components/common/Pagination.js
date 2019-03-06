@@ -2,7 +2,7 @@ import React from "react";
 import { Pagination } from "semantic-ui-react";
 
 const ClientPagination = props => {
-  const { activePage, itemsCount, pageSize, onPageChange, clients } = props;
+  const { activePage, itemsCount, pageSize, onPageChange } = props;
   const totalPages = Math.ceil(itemsCount / pageSize);
   if (totalPages === 1) return null;
 

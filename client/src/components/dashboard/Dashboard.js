@@ -30,7 +30,7 @@ class Dashboard extends Component {
       homeActive: true,
       addFellowActive: false,
 
-      // ----------------------------------------------------------
+      // --------------------------------------------------------
       activePage: 1,
       pageSize: 5
     };
