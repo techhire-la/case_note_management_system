@@ -1,0 +1,23 @@
+.container{
+    /* padding: 2px 16px; */
+     border: 0 4px 30px ;  
+    transition: 0.3s; 
+    /* width: 70%; */
+
+   
+
+}
+
+body {
+    background-color: #ECF0F1;
+  }
+  
+  .page-login {
+    position: absolute;
+    right: 17em;
+    width: 70em;
+    margin-top: 5em;
+    
+    padding: 10px;
+    
+  }

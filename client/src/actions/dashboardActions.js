@@ -1,18 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
 import {
   GET_DASHBOARD,
+  GET_CLIENTS,
   DASHBOARD_LOADING,
   // CLEAR_CURRENT_PROFILE,
   GET_ERRORS
-} from './types';
+} from "./types";
 
 // Get current profile
 // export const getCurrentProfile = () => dispatch => {
 export const getDashboard = () => dispatch => {
   dispatch(setDashboardLoading());
   axios
-    .get('/api/users')
+    .get("/api/users")
     .then(res =>
       dispatch({
         type: GET_DASHBOARD,
@@ -22,6 +23,23 @@ export const getDashboard = () => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_DASHBOARD,
+        payload: {}
+      })
+    );
+};
+
+export const getClients = () => dispatch => {
+  axios
+    .get("api/clients/all")
+    .then(res => {
+      dispatch({
+        type: GET_CLIENTS,
+        payload: res.data
+      })
+    })
+    .catch(e =>
+      dispatch({
+        type: GET_CLIENTS,
         payload: {}
       })
     );
