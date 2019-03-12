@@ -2,15 +2,24 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {
+  Image,
+  Item,
+  Responsive,
+  Segment,
+  Form,
+  Button,
+  Search
+} from "semantic-ui-react";
+import _ from "lodash";
 import { logoutUser } from "../../actions/authActions";
 import SearchClients from "./SearchClients";
 // import { getCurrentProfile } from '../../actions/dashboardActions';
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
-import { Image, Item, Responsive, Segment, Form, Button, Search } from "semantic-ui-react";
 import Client from "./Client";
-import _ from 'lodash';
+import SearchBar from "../common/search_bar";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,10 +32,9 @@ class Dashboard extends Component {
       homeActive: true,
       addFellowActive: false,
       searchResults: [],
-      searchLookupValue: '',
-      searchSelection: ''
+      searchLookupValue: "",
+      searchSelection: ""
     };
-
   }
 
   componentDidMount() {
@@ -36,7 +44,9 @@ class Dashboard extends Component {
     }
     this.setState({
       clients: this.props.clients,
-      searchResults: [], searchLookupValue: '', searchSelection: '' // reset search component
+      searchResults: [],
+      searchLookupValue: "",
+      searchSelection: "" // reset search component
     });
 
     // this.props.getDashboard();
@@ -56,9 +66,9 @@ class Dashboard extends Component {
     // })
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     // updated props if page is refreshed
-    if(this.props !== nextProps){
+    if (this.props !== nextProps) {
       this.setState({
         clients: nextProps.clients
       });
@@ -80,7 +90,6 @@ class Dashboard extends Component {
     this.setState({ homeActive: false, addFellowActive: true });
     this.props.history.push("/addfellow");
   }
-
 
   ///// HANDLE SEARCH ////////////////////////////
 
@@ -106,7 +115,6 @@ class Dashboard extends Component {
   // }
   ////////////////////////////////////////////////
 
-
   sort = (field, direction) => {
     this.setState({
       clients: this.state.clients.sort(function(a, b) {
@@ -122,39 +130,44 @@ class Dashboard extends Component {
   };
 
   handleSearchResultSelect = (e, { result }) => {
-    console.log('you have selected:', result)
+    console.log("you have selected:", result);
     this.setState({
-      searchResults: [], // reset search 
-      searchLookupValue: '',
+      searchResults: [], // reset search
+      searchLookupValue: "",
       searchSelection: result // set selected item
-    })
-  }
+    });
+  };
 
   // handles filtering of clients for the search bar
   handleSearchChange = (e, { value }) => {
     this.setState({
-      searchResults: this.state.clients.filter(client => {
-      if(client.first_name.toLowerCase().includes(value.toLowerCase()) || client.last_name.toLowerCase().includes(value.toLowerCase())){
-        return client
-      }
-      }).map(person => {
+      searchResults: this.state.clients
+        .filter(client => {
+          if (
+            client.first_name.toLowerCase().includes(value.toLowerCase()) ||
+            client.last_name.toLowerCase().includes(value.toLowerCase())
+          ) {
+            return client;
+          }
+        })
+        .map(person => {
           return {
             ...person,
             title: `${person.first_name} ${person.last_name}`,
             description: `hi my name is ${person.first_name}`,
             // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
-            key: person._id,
-          }
+            key: person._id
+          };
         }),
-        searchLookupValue: value
-    })
-  }
+      searchLookupValue: value
+    });
+  };
 
   render() {
     var clients = this.state.clients;
     // var clients = this.state.results;
     // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
-    
+
     return (
       <div>
         <div className="ui inverted segment">
@@ -181,31 +194,47 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <Button
-          icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} 
-          onClick={e => this.sort("last_name", this.state.sortDirection)} 
-          content='Sort by Last Name'
-        />
+
+        <div className="button container" style={{ display: "inline-flex" }}>
+          {/* {----temporary styling----} */}
+          <Button
+            icon={
+              this.state.sortDirection == "ASC"
+                ? "sort alphabet ascending"
+                : "sort alphabet descending"
+            }
+            onClick={e => this.sort("last_name", this.state.sortDirection)}
+            content="Sort by Last Name"
+          />
+
+          {/*
+        ------------ semantic-ui-react search-bar ------------
         <Search
-          // loading='false'
-          onResultSelect={this.handleSearchResultSelect}
-          onSearchChange={this.handleSearchChange}
-          results={this.state.searchResults}
-          value={this.state.searchLookupValue}
-        />
+        // loading='false'
+        onResultSelect={this.handleSearchResultSelect}
+        onSearchChange={this.handleSearchChange}
+        results={this.state.searchResults}
+        value={this.state.searchLookupValue}
+        /> */}
+
+          <SearchBar />
+        </div>
+
         <div />
+
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
-            {clients && clients.map((client, index) => (
-              <Client
-                key={index}
-                first_name={client.first_name}
-                last_name={client.last_name}
-                email={client.email}
-                phone={client.phone}
-                count={index + 1}
-              />
-            ))}
+            {clients &&
+              clients.map((client, index) => (
+                <Client
+                  key={index}
+                  first_name={client.first_name}
+                  last_name={client.last_name}
+                  email={client.email}
+                  phone={client.phone}
+                  count={index + 1}
+                />
+              ))}
           </Item.Group>
         </div>
       </div>
@@ -226,4 +255,3 @@ export default connect(
   mapStateToProps,
   { logoutUser, getClients }
 )(Dashboard);
-
