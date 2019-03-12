@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import { Input } from "semantic-ui-react";
 
-const SearchBar = () => {
+const SearchBar = ({ handleClick }) => {
   return (
     <div>
-      <Input action={{ icon: "search" }} placeholder="Search..." />
+      <Input
+        action={{ icon: "search", onClick: handleClick }}
+        placeholder="Search..."
+        value="test"
+      />
     </div>
   );
 };

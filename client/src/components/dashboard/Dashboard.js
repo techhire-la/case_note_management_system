@@ -163,6 +163,11 @@ class Dashboard extends Component {
     });
   };
 
+  //-----------------
+  handleClick = (e, { value }) => {
+    console.log("Click", e, value);
+  };
+
   render() {
     var clients = this.state.clients;
     // var clients = this.state.results;
@@ -217,7 +222,7 @@ class Dashboard extends Component {
         value={this.state.searchLookupValue}
         /> */}
 
-          <SearchBar />
+          <SearchBar handleClick={this.handleClick} />
         </div>
 
         <div />
