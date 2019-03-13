@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 //import { Container, Form, Button, Header } from 'semantic-ui-react';
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { loginUser } from "../actions/authActions";
-import { Button, Card, Form } from "semantic-ui-react";
+import { Button, Card, Form, Grid } from "semantic-ui-react";
 import styles from "./Login.css";
 
 class Login extends Component {
@@ -35,9 +35,8 @@ class Login extends Component {
     }
 
     if (nextProps.errors) {
-        console.log("errors==", nextProps.errors);
+      console.log("errors==", nextProps.errors);
       this.setState({ errors: nextProps.errors });
-      
     }
   }
 
@@ -77,88 +76,67 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <div>
-        <div class="page-login">
-          <div class="ui centered grid container">
-
-
-            <div class="nine wide column">
-              <div class="ui icon warning message">
-                <i class="techhire" />
-                <div class="content">
-                  <div class="header">Login In!</div>
-                  <p>Enter Note Here!</p>
-                </div>
+      <Fragment>
+        <div class="ui centered grid container">
+          <div class="nine wide column">
+            <div class="ui icon warning message">
+              <i class="techhire" />
+              <div class="content">
+                <div class="header">Login In!</div>
+                <p>Enter Note Here!</p>
               </div>
+            </div>
 
-
-
-
-              <div class="ui fluid card">
-                <div class="content">
-                  <form class="ui form" method="POST">
-                    <div class="field">
-                      <label>User</label>
-                      <input
-                        value={this.state.email}
-                        onChange={this.onChange}
-                        type="text"
-                        name="email"
-                        placeholder="Email"
-                        className={classnames("form-control form-control-lg", {
-                          "is-invalid": errors.email
-                        })}
-                      />
-                    </div>
-                    <div class="field">
-                      <input
-                        type="password"
-                        className={classnames("form-control form-control-lg", {
-                          "is-invalid": errors.password
-                        })}
-                        placeholder="Password"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.onChange}
-                      />
-                      {errors.password && (
-                        <div className="invalid-feedback">
-                          {errors.password}
-                        </div>
-                      )}
-                    </div>
-                    <button
-                      onClick={this.onSubmit}
-                      class="ui primary labeled icon button"
-                      type="submit"
-                    >
-                      <i class="unlock alternate icon" />
-                      Login
-                    </button>
-                    <p>
-              {" "}
-              <br/>
-              Looking for the question form? Click <a href="/">here</a>
-            </p>
-            
-                  </form>
-                </div>
+            <div class="ui fluid card">
+              <div class="content">
+                <form class="ui form" method="POST">
+                  <div class="field">
+                    <label>User</label>
+                    <input
+                      value={this.state.email}
+                      onChange={this.onChange}
+                      type="text"
+                      name="email"
+                      placeholder="Email"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.email
+                      })}
+                    />
+                  </div>
+                  <div class="field">
+                    <input
+                      type="password"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.password
+                      })}
+                      placeholder="Password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                    />
+                    {errors.password && (
+                      <div className="invalid-feedback">{errors.password}</div>
+                    )}
+                  </div>
+                  <button
+                    onClick={this.onSubmit}
+                    class="ui primary labeled icon button"
+                    type="submit"
+                  >
+                    <i class="unlock alternate icon" />
+                    Login
+                  </button>
+                  <p>
+                    {" "}
+                    <br />
+                    Looking for the question form? Click <a href="/">here</a>
+                  </p>
+                </form>
               </div>
             </div>
           </div>
         </div>
-
-        <div className="login">
-          <div className="container col-md-8 ">
-            <div className="row">
-              <div className="col-md-8 ">
-                
-              </div>
-            </div>
-           
-          </div>
-        </div>
-      </div>
+      </Fragment>
     );
   }
 }
