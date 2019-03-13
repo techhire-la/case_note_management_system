@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { logoutUser } from "../../actions/authActions";
+import SearchClients from "./SearchClients";
+// import { getCurrentProfile } from '../../actions/dashboardActions';
+// import { getClientList } from '../../actions/dashboardActions';
+import { getDashboard, getClients } from "../../actions/dashboardActions";
+import Spinner from "../common/Spinner";
 import {
   Image,
   Item,
@@ -11,15 +17,8 @@ import {
   Button,
   Search
 } from "semantic-ui-react";
-import _ from "lodash";
-import { logoutUser } from "../../actions/authActions";
-import SearchClients from "./SearchClients";
-// import { getCurrentProfile } from '../../actions/dashboardActions';
-// import { getClientList } from '../../actions/dashboardActions';
-import { getDashboard, getClients } from "../../actions/dashboardActions";
-import Spinner from "../common/Spinner";
 import Client from "./Client";
-import SearchBar from "../common/search_bar";
+import _ from "lodash";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -163,27 +162,6 @@ class Dashboard extends Component {
     });
   };
 
-  //-----------------
-  handleClick = e => {
-    // console.log("Click", e.currentTarget.previousSibling.value);
-    const value = e.currentTarget.previousSibling.value.trim().split();
-    console.log(value);
-
-    // this.setState({
-    //   searchResults: this.state.clients.filter(client => {
-    //     if (
-    //       client.first_name.toLowerCase().includes(value.toLowerCase()) ||
-    //       client.last_name.toLowerCase().includes(value.toLowerCase())
-    //     ) {
-    //       console.log(client.first_name, client.last_name);
-    //       return client;
-    //     }
-    //   })
-    // });
-  };
-
-  //-----------------
-
   render() {
     var clients = this.state.clients;
     // var clients = this.state.results;
@@ -215,34 +193,23 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-
-        <div className="button container" style={{ display: "inline-flex" }}>
-          {/* {----temporary styling----} */}
-          <Button
-            icon={
-              this.state.sortDirection == "ASC"
-                ? "sort alphabet ascending"
-                : "sort alphabet descending"
-            }
-            onClick={e => this.sort("last_name", this.state.sortDirection)}
-            content="Sort by Last Name"
-          />
-
-          {/*
-        ------------ semantic-ui-react search-bar ------------
+        <Button
+          icon={
+            this.state.sortDirection == "ASC"
+              ? "sort alphabet ascending"
+              : "sort alphabet descending"
+          }
+          onClick={e => this.sort("last_name", this.state.sortDirection)}
+          content="Sort by Last Name"
+        />
         <Search
-        // loading='false'
-        onResultSelect={this.handleSearchResultSelect}
-        onSearchChange={this.handleSearchChange}
-        results={this.state.searchResults}
-        value={this.state.searchLookupValue}
-        /> */}
-
-          <SearchBar handleSearchClick={this.handleClick} />
-        </div>
-
+          // loading='false'
+          onResultSelect={this.handleSearchResultSelect}
+          onSearchChange={this.handleSearchChange}
+          results={this.state.searchResults}
+          value={this.state.searchLookupValue}
+        />
         <div />
-
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
             {clients &&
