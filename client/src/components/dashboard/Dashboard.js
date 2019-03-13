@@ -164,9 +164,25 @@ class Dashboard extends Component {
   };
 
   //-----------------
-  handleClick = (e, { value }) => {
-    console.log("Click", e, value);
+  handleClick = e => {
+    // console.log("Click", e.currentTarget.previousSibling.value);
+    const value = e.currentTarget.previousSibling.value.trim().split();
+    console.log(value);
+
+    // this.setState({
+    //   searchResults: this.state.clients.filter(client => {
+    //     if (
+    //       client.first_name.toLowerCase().includes(value.toLowerCase()) ||
+    //       client.last_name.toLowerCase().includes(value.toLowerCase())
+    //     ) {
+    //       console.log(client.first_name, client.last_name);
+    //       return client;
+    //     }
+    //   })
+    // });
   };
+
+  //-----------------
 
   render() {
     var clients = this.state.clients;
@@ -222,7 +238,7 @@ class Dashboard extends Component {
         value={this.state.searchLookupValue}
         /> */}
 
-          <SearchBar handleClick={this.handleClick} />
+          <SearchBar handleSearchClick={this.handleClick} />
         </div>
 
         <div />
