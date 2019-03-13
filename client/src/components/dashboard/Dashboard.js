@@ -172,7 +172,11 @@ class Dashboard extends Component {
       searchLookupValue
     } = this.state;
 
-    let client = clients.map((client, index) => (
+    let list = searchResults.length === 0 ? clients : searchResults;
+
+    // console.log(listToMap);
+
+    let client = list.map((client, index) => (
       <Client
         key={index}
         first_name={client.first_name}
@@ -182,6 +186,9 @@ class Dashboard extends Component {
         count={index + 1}
       />
     ));
+
+    console.log("SearchResults(Array) ", searchResults);
+    // console.log("Rendered client list ", clients);
 
     return (
       <Fragment>
