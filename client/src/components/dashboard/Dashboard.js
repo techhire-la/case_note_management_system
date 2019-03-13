@@ -163,7 +163,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    var clients = this.state.clients;
+    // var clients = this.state.clients;
+    const { clients } = this.state;
     // var clients = this.state.results;
     // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
 
