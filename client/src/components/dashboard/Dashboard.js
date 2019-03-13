@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -163,23 +163,38 @@ class Dashboard extends Component {
   };
 
   render() {
-    // var clients = this.state.clients;
-    const { clients } = this.state;
-    // var clients = this.state.results;
-    // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
+    const {
+      clients,
+      homeActive,
+      addFellowActive,
+      sortDirection,
+      searchResults,
+      searchLookupValue
+    } = this.state;
+
+    let client = clients.map((client, index) => (
+      <Client
+        key={index}
+        first_name={client.first_name}
+        last_name={client.last_name}
+        email={client.email}
+        phone={client.phone}
+        count={index + 1}
+      />
+    ));
 
     return (
-      <div>
+      <Fragment>
         <div className="ui inverted segment">
           <div className="ui inverted secondary pointing menu">
             <a
-              className={this.state.homeActive ? "item active" : "item"}
+              className={homeActive ? "item active" : "item"}
               onClick={() => this.homeFunc()}
             >
               Home
             </a>
             <a
-              className={this.state.addFellowActive ? "item active" : "item"}
+              className={addFellowActive ? "item active" : "item"}
               onClick={() => this.addFellow()}
             >
               Add Fellow
@@ -193,44 +208,31 @@ class Dashboard extends Component {
             </a>
           </div>
         </div>
+
         <h1>Client List</h1>
 
         <Segment style={{ display: "inline-flex" }}>
           <Button
             icon={
-              this.state.sortDirection == "ASC"
+              sortDirection == "ASC"
                 ? "sort alphabet ascending"
                 : "sort alphabet descending"
             }
-            onClick={e => this.sort("last_name", this.state.sortDirection)}
+            onClick={e => this.sort("last_name", sortDirection)}
             content="Sort by Last Name"
           />
           <Search
             // loading='false'
             onResultSelect={this.handleSearchResultSelect}
             onSearchChange={this.handleSearchChange}
-            results={this.state.searchResults}
-            value={this.state.searchLookupValue}
+            results={searchResults}
+            value={searchLookupValue}
           />
         </Segment>
-
-        <div />
         <div className="ui filterContainer catalogue_items">
-          <Item.Group>
-            {clients &&
-              clients.map((client, index) => (
-                <Client
-                  key={index}
-                  first_name={client.first_name}
-                  last_name={client.last_name}
-                  email={client.email}
-                  phone={client.phone}
-                  count={index + 1}
-                />
-              ))}
-          </Item.Group>
+          <Item.Group>{client}</Item.Group>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
