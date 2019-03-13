@@ -193,22 +193,26 @@ class Dashboard extends Component {
           </div>
         </div>
         <h1>Client List</h1>
-        <Button
-          icon={
-            this.state.sortDirection == "ASC"
-              ? "sort alphabet ascending"
-              : "sort alphabet descending"
-          }
-          onClick={e => this.sort("last_name", this.state.sortDirection)}
-          content="Sort by Last Name"
-        />
-        <Search
-          // loading='false'
-          onResultSelect={this.handleSearchResultSelect}
-          onSearchChange={this.handleSearchChange}
-          results={this.state.searchResults}
-          value={this.state.searchLookupValue}
-        />
+
+        <Segment style={{ display: "inline-flex" }}>
+          <Button
+            icon={
+              this.state.sortDirection == "ASC"
+                ? "sort alphabet ascending"
+                : "sort alphabet descending"
+            }
+            onClick={e => this.sort("last_name", this.state.sortDirection)}
+            content="Sort by Last Name"
+          />
+          <Search
+            // loading='false'
+            onResultSelect={this.handleSearchResultSelect}
+            onSearchChange={this.handleSearchChange}
+            results={this.state.searchResults}
+            value={this.state.searchLookupValue}
+          />
+        </Segment>
+
         <div />
         <div className="ui filterContainer catalogue_items">
           <Item.Group>
