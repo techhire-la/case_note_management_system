@@ -1,11 +1,13 @@
 import {
   GET_DASHBOARD,
+  GET_CLIENTS,
   DASHBOARD_LOADING,
   // CLEAR_CURRENT_PROFILE
 } from '../actions/types';
 
 const initialState = {
   clients: [],
+  allClients: [],
   loading: false
 };
 
@@ -23,6 +25,11 @@ export default function(state = initialState, action) {
         clients: action.payload,
         loading: false
       };
+    case GET_CLIENTS:
+      return {
+        ...state,
+        allClients: action.payload
+      }
     // case GET_CLIENT_LIST:
     //   return {
     //     ...state,
