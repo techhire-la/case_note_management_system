@@ -12,6 +12,9 @@ import { Image, Item, Responsive, Segment, Form, Button, Search } from "semantic
 import Client from "./Client";
 import _ from 'lodash';
 
+import ClientPagination from "../common/Pagination";
+import paginate from "../../utils/paginate";
+
 class Dashboard extends Component {
   constructor(props) {
     super();
@@ -22,10 +25,15 @@ class Dashboard extends Component {
       errors: {},
       homeActive: true,
       addFellowActive: false,
+      activePage: 1,
+      pageSize: 5,
       searchResults: [],
       searchLookupValue: '',
       searchSelection: ''
     };
+
+      this.handlePageChange = this.handlePageChange.bind(this);
+
 
   }
 
@@ -81,35 +89,14 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
-
-  ///// HANDLE SEARCH ////////////////////////////
-
-  // handleSearchValue = value => {
-  //   this.setState({ searchValue: value })
-  // }
-
-  // handleClientSearch = value => {
-
-  //   if (value.length < 1) {
-  //     this.setState({
-  //       results: this.state.results,
-  //     })
-  //   }else{
-  //     this.setState({
-  //       results: value,
-  //     })
-  //   }
-  // }
-
-  // handleSearchReset = () => {
-  //   this.setState({ results: this.state.clients, value: ''})
-  // }
-  ////////////////////////////////////////////////
-
+  handlePageChange(e, { activePage }) {
+    this.setState({ activePage });
+    console.log(activePage);
+  }
 
   sort = (field, direction) => {
     this.setState({
-      clients: this.state.clients.sort(function(a, b) {
+      clients: this.state.clients.sort(function (a, b) {
         if (a[field] > b[field]) {
           return direction == "DESC" ? 1 : -1;
         } else if (a[field] < b[field]) {
@@ -121,7 +108,9 @@ class Dashboard extends Component {
     });
   };
 
-  handleSearchResultSelect = (e, { result }) => {
+  handleSearchResultSelect = (e, {
+    result
+  }) => {
     console.log('you have selected:', result)
     this.setState({
       searchResults: [], // reset search 
@@ -131,30 +120,44 @@ class Dashboard extends Component {
   }
 
   // handles filtering of clients for the search bar
-  handleSearchChange = (e, { value }) => {
+  handleSearchChange = (e, {
+    value
+  }) => {
     this.setState({
       searchResults: this.state.clients.filter(client => {
-      if(client.first_name.toLowerCase().includes(value.toLowerCase()) || client.last_name.toLowerCase().includes(value.toLowerCase())){
-        return client
-      }
+        if (client.first_name.toLowerCase().includes(value.toLowerCase()) || client.last_name.toLowerCase().includes(value.toLowerCase())) {
+          return client
+        }
       }).map(person => {
-          return {
-            ...person,
-            title: `${person.first_name} ${person.last_name}`,
-            description: `hi my name is ${person.first_name}`,
-            // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
-            key: person._id,
-          }
-        }),
-        searchLookupValue: value
+        return {
+          ...person,
+          title: `${person.first_name} ${person.last_name}`,
+          description: `hi my name is ${person.first_name}`,
+          // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
+          key: person._id,
+        }
+      }),
+      searchLookupValue: value
     })
   }
 
   render() {
-    var clients = this.state.clients;
-    // var clients = this.state.results;
-    // var sortText = this.state.sortDirection === 'DESC' ? "Sort Names A-Z" : "Sort Names Z-A"
-    
+    const { clients, activePage, pageSize } = this.state;
+
+    let client = clients.map((client, index) => (
+      <Client
+        key={index}
+        first_name={client.first_name}
+        last_name={client.last_name}
+        email={client.email}
+        phone={client.phone}
+        count={index + 1}
+      />
+    ));
+
+    let clientList = paginate(client, activePage, pageSize);
+
+
     return (
       <div>
         <div className="ui inverted segment">
@@ -195,18 +198,16 @@ class Dashboard extends Component {
         />
         <div />
         <div className="ui filterContainer catalogue_items">
-          <Item.Group>
-            {clients && clients.map((client, index) => (
-              <Client
-                key={index}
-                first_name={client.first_name}
-                last_name={client.last_name}
-                email={client.email}
-                phone={client.phone}
-                count={index + 1}
-              />
-            ))}
-          </Item.Group>
+
+          <ClientPagination
+            activePage={activePage}
+            itemsCount={clients.length}
+            clients={client}
+            pageSize={pageSize}
+            onPageChange={this.handlePageChange}
+          />
+          <Item.Group>{clientList}</Item.Group>
+
         </div>
       </div>
     );
@@ -227,3 +228,30 @@ export default connect(
   { logoutUser, getClients }
 )(Dashboard);
 
+
+
+
+          // < Item.Group > {
+          //     clients && clients.map((client, index) => ( <
+          //       Client key = {
+          //         index
+          //       }
+          //       first_name = {
+          //         client.first_name
+          //       }
+          //       last_name = {
+          //         client.last_name
+          //       }
+          //       email = {
+          //         client.email
+          //       }
+          //       phone = {
+          //         client.phone
+          //       }
+          //       count = {
+          //         index + 1
+          //       }
+          //       />
+          //     ))
+          //   } 
+          //   </Item.Group>
