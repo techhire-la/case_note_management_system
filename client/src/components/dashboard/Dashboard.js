@@ -134,7 +134,6 @@ class Dashboard extends Component {
 
   render() {
     const {
-      // clients,
       activePage,
       pageSize,
       homeActive,
@@ -146,7 +145,6 @@ class Dashboard extends Component {
 
     var clients = this.state.searchResults.length === 0 ? this.state.clients : this.state.searchResults
 
-    // let clients = this.state.clients
 
     let client = clients.map((client, index) => (
       <Client
