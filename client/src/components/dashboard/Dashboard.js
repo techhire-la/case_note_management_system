@@ -20,20 +20,28 @@ import {
 import Client from "./Client";
 import _ from "lodash";
 
+import ClientPagination from "../common/Pagination";
+import paginate from "../../utils/paginate";
+
 class Dashboard extends Component {
   constructor(props) {
     super();
     this.state = {
       clients: [],
       sortDirection: "DESC",
-      // loading: false,
       errors: {},
       homeActive: true,
       addFellowActive: false,
+      activePage: 1,
+      pageSize: 5,
       searchResults: [],
       searchLookupValue: "",
       searchSelection: ""
     };
+
+      this.handlePageChange = this.handlePageChange.bind(this);
+
+
   }
 
   componentDidMount() {
@@ -47,22 +55,6 @@ class Dashboard extends Component {
       searchLookupValue: "",
       searchSelection: "" // reset search component
     });
-
-    // this.props.getDashboard();
-    // axios
-    //     .get('/api/users/register', userData)
-    //     .then(res => history.push('/login'))
-    //     .catch(err =>
-    //         dispatch({
-    //             type: GET_ERRORS,
-    //             payload: err.response.data
-    //         })
-    //     );
-
-    // axios
-    //     .get('/api/dashboard/all')
-    //     .then(response => {this.setState({clients: response.data})
-    // })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -90,33 +82,14 @@ class Dashboard extends Component {
     this.props.history.push("/addfellow");
   }
 
-  ///// HANDLE SEARCH ////////////////////////////
-
-  // handleSearchValue = value => {
-  //   this.setState({ searchValue: value })
-  // }
-
-  // handleClientSearch = value => {
-
-  //   if (value.length < 1) {
-  //     this.setState({
-  //       results: this.state.results,
-  //     })
-  //   }else{
-  //     this.setState({
-  //       results: value,
-  //     })
-  //   }
-  // }
-
-  // handleSearchReset = () => {
-  //   this.setState({ results: this.state.clients, value: ''})
-  // }
-  ////////////////////////////////////////////////
+  handlePageChange(e, { activePage }) {
+    this.setState({ activePage });
+    console.log(activePage);
+  }
 
   sort = (field, direction) => {
     this.setState({
-      clients: this.state.clients.sort(function(a, b) {
+      clients: this.state.clients.sort(function (a, b) {
         if (a[field] > b[field]) {
           return direction == "DESC" ? 1 : -1;
         } else if (a[field] < b[field]) {
@@ -138,45 +111,40 @@ class Dashboard extends Component {
   };
 
   // handles filtering of clients for the search bar
-  handleSearchChange = (e, { value }) => {
+  handleSearchChange = (e, {
+    value
+  }) => {
     this.setState({
-      searchResults: this.state.clients
-        .filter(client => {
-          if (
-            client.first_name.toLowerCase().includes(value.toLowerCase()) ||
-            client.last_name.toLowerCase().includes(value.toLowerCase())
-          ) {
-            return client;
-          }
-        })
-        .map(person => {
-          return {
-            ...person,
-            title: `${person.first_name} ${person.last_name}`,
-            description: `hi my name is ${person.first_name}`,
-            // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
-            key: person._id
-          };
-        }),
+      searchResults: this.state.clients.filter(client => {
+        if (client.first_name.toLowerCase().includes(value.toLowerCase()) || client.last_name.toLowerCase().includes(value.toLowerCase())) {
+          return client
+        }
+      }).map(person => {
+        return {
+          ...person,
+          title: `${person.first_name} ${person.last_name}`,
+          description: `hi my name is ${person.first_name}`,
+          // image: 'https://pngimage.net/wp-content/uploads/2018/06/generic-person-png-4.png',
+          key: person._id,
+        }
+      }),
       searchLookupValue: value
-    });
-  };
+    })
+  }
 
   render() {
     const {
       clients,
+      activePage,
+      pageSize,
       homeActive,
       addFellowActive,
       sortDirection,
       searchResults,
-      searchLookupValue
+      searchLookupValue,
     } = this.state;
 
-    let list = searchResults.length === 0 ? clients : searchResults;
-
-    // console.log(listToMap);
-
-    let client = list.map((client, index) => (
+    let client = clients.map((client, index) => (
       <Client
         key={index}
         first_name={client.first_name}
@@ -187,8 +155,10 @@ class Dashboard extends Component {
       />
     ));
 
-    console.log("SearchResults(Array) ", searchResults);
+    // console.log("SearchResults(Array) ", searchResults);
     // console.log("Rendered client list ", clients);
+    let clientList = paginate(client, activePage, pageSize);
+
 
     return (
       <Fragment>
@@ -237,7 +207,17 @@ class Dashboard extends Component {
           />
         </Segment>
         <div className="ui filterContainer catalogue_items">
-          <Item.Group>{client}</Item.Group>
+
+          <ClientPagination
+            activePage={activePage}
+            itemsCount={clients.length}
+            clients={client}
+            pageSize={pageSize}
+            onPageChange={this.handlePageChange}
+
+          />
+          <Item.Group>{clientList}</Item.Group>
+
         </div>
       </Fragment>
     );
@@ -257,3 +237,33 @@ export default connect(
   mapStateToProps,
   { logoutUser, getClients }
 )(Dashboard);
+
+
+
+//< Item.Group > {
+//  client
+//} < /Item.Group>
+          // < Item.Group > {
+          //     clients && clients.map((client, index) => ( <
+          //       Client key = {
+          //         index
+          //       }
+          //       first_name = {
+          //         client.first_name
+          //       }
+          //       last_name = {
+          //         client.last_name
+          //       }
+          //       email = {
+          //         client.email
+          //       }
+          //       phone = {
+          //         client.phone
+          //       }
+          //       count = {
+          //         index + 1
+          //       }
+          //       />
+          //     ))
+          //   } 
+          //   </Item.Group>

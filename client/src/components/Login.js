@@ -76,67 +76,81 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <Fragment>
-        <div class="ui centered grid container">
-          <div class="nine wide column">
-            <div class="ui icon warning message">
-              <i class="techhire" />
-              <div class="content">
-                <div class="header">Login In!</div>
-                <p>Enter Note Here!</p>
+      <div>
+        <div className="page-login">
+          <div className="ui centered grid container">
+            <div className="nine wide column">
+              <div className="ui icon warning message">
+                <i className="techhire" />
+                <div className="content">
+                  <div className="header">Login In!</div>
+                  <p>Enter Note Here!</p>
+                </div>
+              </div>
+
+              <div className="ui fluid card">
+                <div className="content">
+                  <form className="ui form" method="POST">
+                    <div className="field">
+                      <label>User</label>
+                      <input
+                        value={this.state.email}
+                        onChange={this.onChange}
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.email
+                        })}
+                      />
+                    </div>
+                    <div className="field">
+                      <input
+                        type="password"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password
+                        })}
+                        placeholder="Password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                      />
+                      {errors.password && (
+                        <div className="invalid-feedback">
+                          {errors.password}
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      onClick={this.onSubmit}
+                      className="ui primary labeled icon button"
+                      type="submit"
+                    >
+                      <i className="unlock alternate icon" />
+                      Login
+                    </button>
+                    <p>
+                      {" "}
+                      <br />
+                      Looking for the question form? Click <a href="/">here</a>
+                    </p>
+                  </form>
+                </div>
               </div>
             </div>
+          </div> 
+        </div> 
+      
 
-            <div class="ui fluid card">
-              <div class="content">
-                <form class="ui form" method="POST">
-                  <div class="field">
-                    <label>User</label>
-                    <input
-                      value={this.state.email}
-                      onChange={this.onChange}
-                      type="text"
-                      name="email"
-                      placeholder="Email"
-                      className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors.email
-                      })}
-                    />
-                  </div>
-                  <div class="field">
-                    <input
-                      type="password"
-                      className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors.password
-                      })}
-                      placeholder="Password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                    />
-                    {errors.password && (
-                      <div className="invalid-feedback">{errors.password}</div>
-                    )}
-                  </div>
-                  <button
-                    onClick={this.onSubmit}
-                    class="ui primary labeled icon button"
-                    type="submit"
-                  >
-                    <i class="unlock alternate icon" />
-                    Login
-                  </button>
-                  <p>
-                    {" "}
-                    <br />
-                    Looking for the question form? Click <a href="/">here</a>
-                  </p>
-                </form>
-              </div>
+        <div className="login">
+          <div className="container col-md-8 ">
+            <div className="row">
+              <div className="col-md-8 " />
             </div>
           </div>
         </div>
-      </Fragment>
+      </div>
+    
     );
   }
 }
