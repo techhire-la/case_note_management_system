@@ -239,33 +239,3 @@ export default connect(
   mapStateToProps,
   { logoutUser, getClients }
 )(Dashboard);
-
-
-
-//< Item.Group > {
-//  client
-//} < /Item.Group>
-          // < Item.Group > {
-          //     clients && clients.map((client, index) => ( <
-          //       Client key = {
-          //         index
-          //       }
-          //       first_name = {
-          //         client.first_name
-          //       }
-          //       last_name = {
-          //         client.last_name
-          //       }
-          //       email = {
-          //         client.email
-          //       }
-          //       phone = {
-          //         client.phone
-          //       }
-          //       count = {
-          //         index + 1
-          //       }
-          //       />
-          //     ))
-          //   } 
-          //   </Item.Group>
