@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -8,9 +8,17 @@ import SearchClients from "./SearchClients";
 // import { getClientList } from '../../actions/dashboardActions';
 import { getDashboard, getClients } from "../../actions/dashboardActions";
 import Spinner from "../common/Spinner";
-import { Image, Item, Responsive, Segment, Form, Button, Search } from "semantic-ui-react";
+import {
+  Image,
+  Item,
+  Responsive,
+  Segment,
+  Form,
+  Button,
+  Search
+} from "semantic-ui-react";
 import Client from "./Client";
-import _ from 'lodash';
+import _ from "lodash";
 
 import ClientPagination from "../common/Pagination";
 import paginate from "../../utils/paginate";
@@ -21,15 +29,14 @@ class Dashboard extends Component {
     this.state = {
       clients: [],
       sortDirection: "DESC",
-      // loading: false,
       errors: {},
       homeActive: true,
       addFellowActive: false,
       activePage: 1,
       pageSize: 5,
       searchResults: [],
-      searchLookupValue: '',
-      searchSelection: ''
+      searchLookupValue: "",
+      searchSelection: ""
     };
 
       this.handlePageChange = this.handlePageChange.bind(this);
@@ -44,29 +51,15 @@ class Dashboard extends Component {
     }
     this.setState({
       clients: this.props.clients,
-      searchResults: [], searchLookupValue: '', searchSelection: '' // reset search component
+      searchResults: [],
+      searchLookupValue: "",
+      searchSelection: "" // reset search component
     });
-
-    // this.props.getDashboard();
-    // axios
-    //     .get('/api/users/register', userData)
-    //     .then(res => history.push('/login'))
-    //     .catch(err =>
-    //         dispatch({
-    //             type: GET_ERRORS,
-    //             payload: err.response.data
-    //         })
-    //     );
-
-    // axios
-    //     .get('/api/dashboard/all')
-    //     .then(response => {this.setState({clients: response.data})
-    // })
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     // updated props if page is refreshed
-    if(this.props !== nextProps){
+    if (this.props !== nextProps) {
       this.setState({
         clients: nextProps.clients
       });
@@ -108,16 +101,14 @@ class Dashboard extends Component {
     });
   };
 
-  handleSearchResultSelect = (e, {
-    result
-  }) => {
-    console.log('you have selected:', result)
+  handleSearchResultSelect = (e, { result }) => {
+    console.log("you have selected:", result);
     this.setState({
-      searchResults: [], // reset search 
-      searchLookupValue: '',
+      searchResults: [], // reset search
+      searchLookupValue: "",
       searchSelection: result // set selected item
-    })
-  }
+    });
+  };
 
   // handles filtering of clients for the search bar
   handleSearchChange = (e, {
@@ -142,7 +133,18 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { clients, activePage, pageSize } = this.state;
+    const {
+      activePage,
+      pageSize,
+      homeActive,
+      addFellowActive,
+      sortDirection,
+      searchResults,
+      searchLookupValue,
+    } = this.state;
+
+    var clients = this.state.searchResults.length === 0 ? this.state.clients : this.state.searchResults
+
 
     let client = clients.map((client, index) => (
       <Client
@@ -155,21 +157,23 @@ class Dashboard extends Component {
       />
     ));
 
+    // console.log("SearchResults(Array) ", searchResults);
+    // console.log("Rendered client list ", clients);
     let clientList = paginate(client, activePage, pageSize);
 
 
     return (
-      <div>
+      <Fragment>
         <div className="ui inverted segment">
           <div className="ui inverted secondary pointing menu">
             <a
-              className={this.state.homeActive ? "item active" : "item"}
+              className={homeActive ? "item active" : "item"}
               onClick={() => this.homeFunc()}
             >
               Home
             </a>
             <a
-              className={this.state.addFellowActive ? "item active" : "item"}
+              className={addFellowActive ? "item active" : "item"}
               onClick={() => this.addFellow()}
             >
               Add Fellow
@@ -183,20 +187,27 @@ class Dashboard extends Component {
             </a>
           </div>
         </div>
+
         <h1>Client List</h1>
-        <Button
-          icon={this.state.sortDirection == 'ASC' ? 'sort alphabet ascending' : 'sort alphabet descending'} 
-          onClick={e => this.sort("last_name", this.state.sortDirection)} 
-          content='Sort by Last Name'
-        />
-        <Search
-          // loading='false'
-          onResultSelect={this.handleSearchResultSelect}
-          onSearchChange={this.handleSearchChange}
-          results={this.state.searchResults}
-          value={this.state.searchLookupValue}
-        />
-        <div />
+
+        <Segment style={{ display: "inline-flex" }}>
+          <Button
+            icon={
+              sortDirection == "ASC"
+                ? "sort alphabet ascending"
+                : "sort alphabet descending"
+            }
+            onClick={e => this.sort("last_name", sortDirection)}
+            content="Sort by Last Name"
+          />
+          <Search
+            // loading='false'
+            onResultSelect={this.handleSearchResultSelect}
+            onSearchChange={this.handleSearchChange}
+            results={searchResults}
+            value={searchLookupValue}
+          />
+        </Segment>
         <div className="ui filterContainer catalogue_items">
 
           <ClientPagination
@@ -205,11 +216,12 @@ class Dashboard extends Component {
             clients={client}
             pageSize={pageSize}
             onPageChange={this.handlePageChange}
+   
           />
           <Item.Group>{clientList}</Item.Group>
 
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
@@ -230,7 +242,9 @@ export default connect(
 
 
 
-
+//< Item.Group > {
+//  client
+//} < /Item.Group>
           // < Item.Group > {
           //     clients && clients.map((client, index) => ( <
           //       Client key = {

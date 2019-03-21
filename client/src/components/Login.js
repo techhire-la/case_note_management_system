@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 //import { Container, Form, Button, Header } from 'semantic-ui-react';
 import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import classnames from "classnames";
 import { loginUser } from "../actions/authActions";
-// import { Button, Card, Form } from "semantic-ui-react";
-// import styles from "./Login.css";
+import { Button, Card, Form, Grid } from "semantic-ui-react";
+import styles from "./Login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -138,8 +138,9 @@ class Login extends Component {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div> 
+        </div> 
+      
 
         <div className="login">
           <div className="container col-md-8 ">
@@ -149,6 +150,7 @@ class Login extends Component {
           </div>
         </div>
       </div>
+    
     );
   }
 }

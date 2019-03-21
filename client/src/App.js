@@ -14,6 +14,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import "./App.css";
+import { Container } from "semantic-ui-react";
 
 //import Answers from './Answers'
 import Questionnaire from "./Questionnaire";
@@ -44,16 +45,14 @@ class App extends Component {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <div className="container">
-              <Route exact path="/" component={Questionnaire} />
-              <Route exact path="/login" component={Login} />
-            </div>
+          <Container>
+            <Route exact path="/" component={Questionnaire} />
+            <Route exact path="/login" component={Login} />
             <Switch>
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute exact path="/addfellow" component={AddFellow} />
             </Switch>
-          </div>
+          </Container>
         </Router>
       </Provider>
     );
